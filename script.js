@@ -132,7 +132,7 @@
      */
     const FORM_CONFIG = {
         webhookUrl: '',  // p.ej. 'https://api.empresa.com/webhook/inscripciones'
-        sheetsUrl:  ''   // p.ej. 'https://script.google.com/macros/s/.../exec'
+        sheetsUrl:  'https://script.google.com/macros/s/AKfycbx2IbBPX8A9fDgqLGyh9tf4kJnei_pstheuYm0GB7P-pib-xTRVCJgK5BdoD_WIYfZmTg/exec'
     };
 
     /**
@@ -187,15 +187,26 @@
     /**
      * Envía el payload al webhook configurado. Devuelve una Promise que
      * resuelve true si todo salió bien, false si hubo error de red.
+     *
+     * Detalle CORS: Apps Script de Google bloquea las requests que activan
+     * preflight (cualquier Content-Type distinto a los "simples"). Por eso
+     * cuando la URL es de script.google.com NO seteamos Content-Type — el
+     * body sigue siendo JSON válido y se parsea con JSON.parse(e.postData
+     * .contents) en el doPost del Apps Script.
      */
     async function sendToWebhook(url, payload) {
         if (!url) return null;
+        const isAppsScript = url.includes('script.google.com');
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            redirect: 'follow'
+        };
+        if (!isAppsScript) {
+            options.headers = { 'Content-Type': 'application/json' };
+        }
         try {
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            const res = await fetch(url, options);
             return res.ok;
         } catch (err) {
             console.error('[Form] Error enviando al webhook:', err);
