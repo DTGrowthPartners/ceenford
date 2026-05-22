@@ -162,9 +162,9 @@
     function collectFormData(form) {
         const data = new FormData(form);
         const labelOpcionPago = {
-            vip: 'Valor VIP regular - 600 USD',
-            hoy: 'Valor HOY!! - 350 USD',
-            registro: 'Registrate ahora - 0 USD (pago en 15 dias)'
+            vip: '600 USD',
+            hoy: '350 USD',
+            registro: '0 USD (pago en 15 días)'
         };
         const labelTipoParticipacion = {
             asistente: 'Asistente',
