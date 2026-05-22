@@ -358,13 +358,13 @@ html, body {
 .hero__partners-track {
     display: flex;
     align-items: center;
-    gap: 56px;
+    gap: 40px;
     width: max-content;
     animation: partnersScroll 60s linear infinite;
 }
 
 .hero__partners-item {
-    height: 56px;
+    height: 34px;
     width: auto;
     flex-shrink: 0;
     object-fit: contain;
@@ -1886,12 +1886,12 @@ html, body {
     }
 
     .hero__partners-track {
-        gap: 36px;
+        gap: 28px;
         animation-duration: 40s;
     }
 
     .hero__partners-item {
-        height: 38px;
+        height: 26px;
     }
 
     /* ----- PASOS ----- */
