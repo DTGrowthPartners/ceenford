@@ -151,7 +151,7 @@
      */
     const FORM_CONFIG = {
         webhookUrl: '',  // p.ej. 'https://api.empresa.com/webhook/inscripciones'
-        sheetsUrl:  'https://script.google.com/macros/s/AKfycbx2IbBPX8A9fDgqLGyh9tf4kJnei_pstheuYm0GB7P-pib-xTRVCJgK5BdoD_WIYfZmTg/exec'
+        sheetsUrl:  'https://script.google.com/macros/s/AKfycbzdK8VeWJFHj9sDaw3sN2sgCB88l-auEXJmyksAaTtKvszlkM_vrUJLFAWv98CTaiiXVg/exec'
     };
 
     /**
