@@ -389,6 +389,12 @@ html, body {
     }
 }
 
+/* Segunda fila del carrusel: oculta por default, solo visible en mobile.
+   Se crea dinámicamente con JS (initPartnersDualRow). */
+.hero__partners-track--rtl {
+    display: none;
+}
+
 /* ---------- PASO (secciones) ---------- */
 .paso {
     max-width: 1280px;
@@ -1923,14 +1929,25 @@ html, body {
         width: 2px;
     }
 
-    /* Banda de partners en mobile: logos más pequeños, animación un poco más rápida */
+    /* Banda de partners en mobile: 2 filas con direcciones opuestas.
+       Logos más pequeños, animación un poco más rápida. */
     .hero__partners {
         margin-top: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .hero__partners-track {
         gap: 28px;
         animation-duration: 40s;
+    }
+
+    /* Segunda fila visible en mobile, animada en dirección contraria
+       (de derecha a izquierda) usando animation-direction: reverse. */
+    .hero__partners-track--rtl {
+        display: flex;
+        animation: partnersScroll 40s linear infinite reverse;
     }
 
     .hero__partners-item {

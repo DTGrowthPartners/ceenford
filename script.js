@@ -116,6 +116,25 @@
 
         // Inicializar el handler del formulario de registro
         initFormSubmit();
+
+        // Crear segunda fila del carrusel de partners (visible en mobile)
+        initPartnersDualRow();
+    }
+
+    /**
+     * Crea una segunda fila del carrusel de partners clonando la primera.
+     * Por CSS está oculta en desktop y solo aparece en mobile (<= 720px),
+     * donde se anima en dirección contraria (de derecha a izquierda).
+     */
+    function initPartnersDualRow() {
+        const partners = document.querySelector('.hero__partners');
+        if (!partners) return;
+        const firstTrack = partners.querySelector('.hero__partners-track');
+        if (!firstTrack) return;
+        const secondTrack = firstTrack.cloneNode(true);
+        secondTrack.classList.add('hero__partners-track--rtl');
+        secondTrack.setAttribute('aria-hidden', 'true');
+        partners.appendChild(secondTrack);
     }
 
     /**
@@ -188,11 +207,20 @@
      * Envía el payload al webhook configurado. Devuelve una Promise que
      * resuelve true si todo salió bien, false si hubo error de red.
      *
-     * Detalle CORS: Apps Script de Google bloquea las requests que activan
-     * preflight (cualquier Content-Type distinto a los "simples"). Por eso
-     * cuando la URL es de script.google.com NO seteamos Content-Type — el
-     * body sigue siendo JSON válido y se parsea con JSON.parse(e.postData
-     * .contents) en el doPost del Apps Script.
+     * Detalle CORS con Apps Script de Google:
+     * Apps Script web apps redirigen de script.google.com a
+     * script.googleusercontent.com, y la response final no incluye
+     * Access-Control-Allow-Origin que permita leer la respuesta. Eso hace
+     * que fetch lance una excepción CORS aunque el doPost se haya
+     * ejecutado correctamente.
+     *
+     * La solución estándar es usar mode: 'no-cors': el POST llega y se
+     * procesa, pero la response es "opaca" (no se puede leer). Como sólo
+     * nos interesa que llegue, asumimos éxito si no hubo excepción.
+     *
+     * En modo no-cors no se puede setear Content-Type custom; el body
+     * va como text/plain por defecto. El doPost recibe el contenido en
+     * e.postData.contents y lo parsea con JSON.parse — funciona igual.
      */
     async function sendToWebhook(url, payload) {
         if (!url) return null;
@@ -202,11 +230,16 @@
             body: JSON.stringify(payload),
             redirect: 'follow'
         };
-        if (!isAppsScript) {
+        if (isAppsScript) {
+            options.mode = 'no-cors';
+        } else {
             options.headers = { 'Content-Type': 'application/json' };
         }
         try {
             const res = await fetch(url, options);
+            // Con no-cors la response es opaca y res.ok siempre es false.
+            // Si llegó hasta aquí sin excepción, el POST salió.
+            if (options.mode === 'no-cors') return true;
             return res.ok;
         } catch (err) {
             console.error('[Form] Error enviando al webhook:', err);
