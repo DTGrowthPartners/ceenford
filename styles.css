@@ -338,6 +338,11 @@ html, body {
     max-width: 1280px;
     margin: 18px auto 0;
     overflow: hidden;
+    /* Inicia invisible — script.js agrega .is-ready una vez que todos
+       los SVG terminaron de cargar. Evita el flash de logos apareciendo
+       de a uno en orden aleatorio. */
+    opacity: 0;
+    transition: opacity 0.45s ease-out;
     /* Fade en los bordes para que los logos no aparezcan/desaparezcan bruscamente */
     -webkit-mask-image: linear-gradient(
         to right,
@@ -353,6 +358,10 @@ html, body {
         black 94%,
         transparent 100%
     );
+}
+
+.hero__partners.is-ready {
+    opacity: 1;
 }
 
 .hero__partners-track {

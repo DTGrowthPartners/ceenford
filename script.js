@@ -122,19 +122,52 @@
     }
 
     /**
-     * Crea una segunda fila del carrusel de partners clonando la primera.
-     * Por CSS está oculta en desktop y solo aparece en mobile (<= 720px),
-     * donde se anima en dirección contraria (de derecha a izquierda).
+     * Carrusel de partners:
+     * 1. Clona el primer track para crear la segunda fila (visible solo
+     *    en mobile, animada en dirección contraria).
+     * 2. Espera a que todos los logos (originales + clones) terminen de
+     *    cargar antes de mostrar el carrusel. Sin esto, los SVG aparecen
+     *    de a uno en orden aleatorio según se descargan = mala UX.
      */
     function initPartnersDualRow() {
         const partners = document.querySelector('.hero__partners');
         if (!partners) return;
+
+        // 1. Clonar para segunda fila
         const firstTrack = partners.querySelector('.hero__partners-track');
-        if (!firstTrack) return;
-        const secondTrack = firstTrack.cloneNode(true);
-        secondTrack.classList.add('hero__partners-track--rtl');
-        secondTrack.setAttribute('aria-hidden', 'true');
-        partners.appendChild(secondTrack);
+        if (firstTrack) {
+            const secondTrack = firstTrack.cloneNode(true);
+            secondTrack.classList.add('hero__partners-track--rtl');
+            secondTrack.setAttribute('aria-hidden', 'true');
+            partners.appendChild(secondTrack);
+        }
+
+        // 2. Esperar a que todos los logos terminen de cargar
+        const images = Array.from(partners.querySelectorAll('.hero__partners-item'));
+        const markReady = () => partners.classList.add('is-ready');
+
+        if (images.length === 0) {
+            markReady();
+            return;
+        }
+
+        let loaded = 0;
+        const onDone = () => {
+            loaded++;
+            if (loaded >= images.length) markReady();
+        };
+
+        images.forEach((img) => {
+            if (img.complete) {
+                onDone();
+            } else {
+                img.addEventListener('load', onDone, { once: true });
+                img.addEventListener('error', onDone, { once: true });
+            }
+        });
+
+        // Fallback: si algún logo nunca carga, mostrar igual después de 3s
+        setTimeout(markReady, 3000);
     }
 
     /**
@@ -320,11 +353,6 @@
             }
 
             const payload = collectFormData(form);
-
-            // Imprime el JSON en consola para testing y para que el dev
-            // de backend vea la estructura exacta que va a recibir.
-            console.log('[Form] Payload listo para webhook:', payload);
-            console.log('[Form] JSON string:\n' + JSON.stringify(payload, null, 2));
 
             // Estado visual: deshabilitar mientras se procesa
             if (submitBtn) {
