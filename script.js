@@ -155,6 +155,28 @@
     };
 
     /**
+     * Genera un ID consecutivo irrepetible basado en el timestamp UTC.
+     * Formato: YYYYMMDDHHMMSSmmm (17 dígitos)
+     * Ejemplo: 20260522205530123 → 2026-05-22 20:55:30.123 UTC
+     *
+     * Es el mismo ID en formato numérico que el enviado_en ISO, así si en
+     * el futuro hay que correlacionarlos es trivial.
+     */
+    function generateId() {
+        const d = new Date();
+        const pad = (n, len = 2) => String(n).padStart(len, '0');
+        return (
+            d.getUTCFullYear().toString() +
+            pad(d.getUTCMonth() + 1) +
+            pad(d.getUTCDate()) +
+            pad(d.getUTCHours()) +
+            pad(d.getUTCMinutes()) +
+            pad(d.getUTCSeconds()) +
+            pad(d.getUTCMilliseconds(), 3)
+        );
+    }
+
+    /**
      * Extrae todos los datos del form y arma un objeto plano listo para JSON.
      * Incluye los radios fuera del <form> (vinculados via form="form-registro"),
      * los inputs ocultos de los custom-select y los checkboxes.
@@ -175,6 +197,7 @@
 
         const opcionPago = data.get('opcion-paso1');
         const tipoPart  = data.get('opcion-paso2');
+        const now       = new Date();
 
         return {
             // Selecciones de pasos 1 y 2
@@ -197,9 +220,12 @@
             confirma_registro: data.get('confirma') === 'on',
 
             // Metadata útil para auditar el envío
-            enviado_en: new Date().toISOString(),
+            enviado_en: now.toISOString(),
             origen:     window.location.hostname,
-            user_agent: navigator.userAgent
+            user_agent: navigator.userAgent,
+
+            // ID consecutivo irrepetible (timestamp numérico)
+            id: generateId()
         };
     }
 

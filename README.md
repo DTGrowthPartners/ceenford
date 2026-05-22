@@ -80,7 +80,7 @@ const FORM_CONFIG = {
 ```json
 {
   "opcion_pago": "vip" | "hoy" | "registro",
-  "opcion_pago_label": "Valor VIP regular - 600 USD",
+  "opcion_pago_label": "600 USD",
   "tipo_participacion": "asistente" | "estudiante" | "ponente" | "patrocinador",
   "tipo_participacion_label": "Asistente",
   "nombre": "Juan Pérez",
@@ -94,12 +94,16 @@ const FORM_CONFIG = {
   "confirma_registro": true,
   "enviado_en": "2026-08-15T14:30:00.000Z",
   "origen": "ceenford.dtgrowthpartners.com",
-  "user_agent": "Mozilla/5.0 ..."
+  "user_agent": "Mozilla/5.0 ...",
+  "id": "20260815143000000"
 }
 ```
 
-Los campos `*_label` incluyen el texto legible por humanos (útil para emails
-de confirmación). Los campos `pais` y `area` van como códigos cortos.
+- Los campos `*_label` incluyen el texto legible por humanos (útil para
+  emails de confirmación). Los campos `pais` y `area` van como códigos cortos.
+- `id` es un identificador único basado en el timestamp UTC con formato
+  `YYYYMMDDHHMMSSmmm` (17 dígitos). Sirve como consecutivo para correlacionar
+  con el backend cuando esté disponible.
 
 ### Guardar en Google Sheets (sin backend)
 
@@ -123,7 +127,8 @@ function doPost(e) {
         data.opcion_pago_label,
         data.tipo_participacion_label,
         data.area,
-        data.institucion || ''
+        data.institucion || '',
+        data.id  // ID consecutivo (ultima columna)
     ]);
     return ContentService.createTextOutput(JSON.stringify({ ok: true }))
         .setMimeType(ContentService.MimeType.JSON);
