@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24.97 16.49">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #022cd4;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g id="E_-_575_Mail_message" data-name="E - 575, Mail, message">
+      <path class="cls-1" d="m23.51,0H1.41C.62,0,0,.62,0,1.4v13.7c0,.78.62,1.4,1.41,1.4h22.14c.79,0,1.41-.62,1.41-1.4V1.4c-.04-.78-.66-1.4-1.45-1.4ZM1.04,1.73l6.69,6.33L1.04,14.68V1.73Zm13.09,7.82c-.91.86-2.41.86-3.32,0L1.79,1.03h21.35l-9.01,8.51Zm-5.65-.78l1.58,1.52c1.33,1.28,3.45,1.28,4.78,0l1.58-1.52,6.73,6.66H1.79l6.69-6.66Zm8.72-.7l6.69-6.33v12.96l-6.69-6.62Z"/>
+    </g>
+  </g>
+</svg>

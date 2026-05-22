@@ -1,0 +1,41 @@
+# Archivos pesados de diseño (Illustrator) — no van al repo
+*.ai
+*.psd
+*.sketch
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+.Spotlight-V100
+.Trashes
+
+# IDE / editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.code-workspace
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencias (por si se agrega build system en el futuro)
+node_modules/
+.npm
+.yarn
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+.cache/

@@ -1,0 +1,1545 @@
+:root {
+    --color-blue: #1E1B8E;
+    --color-blue-deep: #161579;
+    --color-green: #2DB349;
+    --color-green-dark: #1F8E37;
+    --color-gold: #D9B247;
+    --color-gold-light: #E4C26B;
+    --color-white: #ffffff;
+    --color-text: #1a1a1a;
+    --color-muted: #6b7280;
+    --color-card-border: #E5E7EB;
+
+    --radius-card: 18px;
+    --radius-pill: 999px;
+    --shadow-card: 0 10px 30px rgba(20, 25, 80, 0.08);
+
+    --font-base: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-base);
+    color: var(--color-text);
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+    position: relative;
+    width: 100%;
+    padding: 0 64px 28px;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url('img/fondo-nuevo.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+}
+
+/* ---------- HEADER (card con los logos superiores) ---------- */
+.header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+
+.header__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    background: var(--color-white);
+    border-radius: 0 0 28px 28px;
+    padding: 35px 55px;
+    box-shadow: 0 8px 24px rgba(20, 25, 80, 0.08);
+}
+
+.header__logo {
+    height: 90px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* ---------- CONTENIDO DEL HERO ---------- */
+.hero__content {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap:200px;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 12px 0 24px;
+}
+
+/* parte del logo del hero, monterrey y mexico*/
+.hero__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 100%;
+    align-content: center;
+}
+
+.hero__congress-logo {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    display: block;
+}
+
+.hero__title-group {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+}
+
+.hero__city {
+    font-family: var(--font-base);
+    font-weight: 900;
+    font-size: clamp(48px, 6.5vw, 92px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--color-blue);
+    margin: 6px 0 14px;
+}
+
+.hero__badge-country {
+    display: inline-block;
+    background: linear-gradient(90deg, #44A73F 10%, #E02524 100%);
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    padding: 3px 15px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 4px 10px rgba(45, 179, 73, 0.25);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+/* Lado derecho */
+.hero__right {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(220px, 1fr);
+    gap: 2px;
+    align-items: start;
+}
+
+.hero__info-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Pills (Incluye / Fecha) */
+.hero__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-gold);
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 18px;
+    padding: 6px 32px 6px 6px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 4px 10px rgba(217, 178, 71, 0.35);
+    position: relative;
+    z-index: 2;
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+.hero__pill-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--color-blue);
+    color: var(--color-white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: -11px 2px -11px -2px;
+    box-shadow: 0 2px 6px rgba(30, 27, 142, 0.25);
+    transform:translateX(-5px);
+}
+
+.hero__pill-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.hero__pill-icon-img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+/* Cards de información */
+.hero__info-card {
+    background: var(--color-white);
+    border-radius: var(--radius-card);
+    padding: 22px 24px 18px;
+    box-shadow: var(--shadow-card);
+    width: 100%;
+    min-height: 140px;
+}
+
+.hero__info-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero__info-list li {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    color: var(--color-blue);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 6px 4px;
+    border-bottom: 3.33px solid #D3D3D3;
+}
+
+.hero__info-list li img{
+    padding:0px 3px;
+}
+
+
+
+.hero__info-list li:last-child {
+    border-bottom: none;
+}
+
+.hero__info-icon {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+/* Card de fecha */
+.hero__info-card {
+    width:70%;
+    padding:2px 15px;
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+/*card fecha*/
+.hero__info-card--date {
+    display: flex;
+    gap: 18px;
+    padding: 25px 18px;
+    min-height: 0;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.hero__date-day {
+    font-weight: 900;
+    font-size: 75px;
+    line-height: 1;
+    color: var(--color-blue);
+    letter-spacing: -0.03em;
+}
+
+.hero__date-divider {
+    width: 3.3px;
+    align-self: stretch;
+    background: var(--color-blue);
+    margin:2px 0;
+    border-radius:50px;
+}
+
+.hero__date-rest {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+}
+
+.hero__date-month {
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--color-blue);
+    line-height: 1.05;
+}
+
+.hero__date-year {
+    font-weight: 800;
+    font-size: 40px;
+    color: var(--color-blue);
+    line-height: 1;
+}
+
+/* ---------- FRANJA DE ALIADOS ---------- */
+.hero__partners {
+    max-width: 1280px;
+    margin: 18px auto 0;
+    display: flex;
+    justify-content: center;
+}
+
+.hero__partners-img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* ---------- PASO (secciones) ---------- */
+.paso {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 64px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.paso__intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px 18px;
+    align-items: center;
+}
+
+.paso__num-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.paso__label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #28316E;
+    line-height: 1;
+}
+
+.paso__num {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #0021B9;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1;
+}
+
+.paso__text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.paso__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #28316E;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.paso__subtitle {
+    font-size: 14px;
+    color: #28316E;
+    margin: 0;
+    line-height: 1.45;
+}
+
+/* Grupo de cards */
+.paso__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.7fr;
+    gap: 16px;
+}
+
+/* Card de opción individual */
+.opcion-card {
+    position: relative;
+    background: var(--color-white);
+    border: 3px solid #C6C6C6;
+    border-radius: 16px;
+    padding: 22px 20px 18px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(20, 25, 80, 0.09);
+    transition:0.3s;
+}
+
+.opcion-card:hover {
+    transform: translateY(-2px);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition:0.3s;
+}
+
+.opcion-card__radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.opcion-card__radio-visual {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--color-blue);
+    background: transparent;
+}
+
+.opcion-card__radio:checked + .opcion-card__radio-visual::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--color-blue);
+}
+
+.opcion-card__check {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: auto;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #0021B9;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    pointer-events: none;
+}
+
+.opcion-card__check svg {
+    width: 14px;
+    height: 14px;
+}
+
+.opcion-card__radio:checked ~ .opcion-card__check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Oculta el círculo vacío del radio cuando la card está seleccionada — el check lo reemplaza */
+.opcion-card__radio:checked + .opcion-card__radio-visual {
+    opacity: 0;
+}
+
+/* Body compartido entre las cards */
+.opcion-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    padding-top: 8px;
+}
+
+.opcion-card__label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #42446E;
+}
+
+.opcion-card__price {
+    font-weight: 900;
+    color: #42446E;
+    line-height: 1;
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.opcion-card__price strong {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.opcion-card__price sup {
+    font-size: 15px;
+    font-weight: 700;
+    color: #42446E;
+    padding-bottom: 8px;
+}
+
+/* El radio de la card VIP usa el tema gris por defecto; el punto del radio queda azul */
+.opcion-card--vip .opcion-card__radio-visual {
+    border-color: #0021B9;
+}
+
+.opcion-card--vip .opcion-card__radio:checked + .opcion-card__radio-visual::after {
+    background: #0021B9;
+}
+
+/* Card HOY */
+.opcion-card--hoy {
+    border-color: #1D8834;
+}
+
+.opcion-card--hoy .opcion-card__radio-visual {
+    border-color: #1D8834;
+}
+
+.opcion-card--hoy .opcion-card__radio:checked + .opcion-card__radio-visual::after {
+    background: #1D8834;
+}
+
+.opcion-card--hoy .opcion-card__check {
+    background: #1D8834;
+}
+
+.opcion-card--hoy .opcion-card__label,
+.opcion-card--hoy .opcion-card__price,
+.opcion-card--hoy .opcion-card__price sup,
+.opcion-card--hoy .opcion-card__note {
+    color: #1D8834;
+}
+
+.opcion-card__label--green {
+    font-weight: 700;
+}
+
+.opcion-card__note {
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 4px;
+    color:#28316E !important;
+}
+
+/* Card de Registro */
+.opcion-card--registro {
+    border-color: #022CD4;
+}
+
+.opcion-card--registro .opcion-card__radio-visual {
+    border-color: #022CD4;
+}
+
+.opcion-card--registro .opcion-card__radio:checked + .opcion-card__radio-visual::after {
+    background: #022CD4;
+}
+
+.opcion-card--registro .opcion-card__check {
+    background: #022CD4;
+}
+
+.opcion-card__body--registro {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 14px;
+    padding-top: 14px;
+}
+
+.opcion-card__icon {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.opcion-card__registro-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.opcion-card__registro-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.opcion-card__zero {
+    font-size: 38px;
+    font-weight: 900;
+    color: #022CD4;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.opcion-card__registro-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #022CD4;
+    line-height: 1.15;
+}
+
+.opcion-card__desc {
+    font-size: 13px;
+    color: #022CD4;
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.opcion-card__desc--strong {
+    font-weight: 800;
+}
+
+/* ---------- PASO 2 — tipo de participación ---------- */
+.tipo-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.tipo-card {
+    position: relative;
+    background: var(--color-white);
+    border: 3px solid #C6C6C6;
+    border-radius: 16px;
+    padding: 22px 18px 20px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    min-height: 200px;
+}
+
+.tipo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(2, 44, 212, 0.08);
+}
+
+.tipo-card__radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tipo-card__check {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #0019AE;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.tipo-card__check svg {
+    width: 14px;
+    height: 14px;
+}
+
+.tipo-card__radio:checked ~ .tipo-card__check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.tipo-card:has(.tipo-card__radio:checked) {
+    border-color: #0019AE;
+    box-shadow: 0 4px 14px rgba(0, 25, 174, 0.12);
+}
+
+.tipo-card__icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-top: 4px;
+}
+
+.tipo-card__title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #022CD4;
+    margin: 4px 0 0;
+    line-height: 1.15;
+}
+
+.tipo-card__desc {
+    font-size: 13px;
+    color: #022CD4;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ---------- PASO 3 — completa tus datos ---------- */
+.form-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-datos__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.form-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--color-white);
+    border: 3px solid #E8E8E8;
+    border-radius: 8px;
+    padding: 16px 18px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-field:focus-within {
+    border-color: #022CD4;
+    box-shadow: 0 2px 10px rgba(2, 44, 212, 0.08);
+}
+
+.form-field--full {
+    grid-column: 1 / -1;
+}
+
+.form-field__icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.form-field__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 14px;
+    color: #022CD4;
+    width: 100%;
+    min-width: 0;
+}
+
+.form-field__input::placeholder {
+    color: #022CD4;
+    opacity: 1;
+    font-weight: 700;
+}
+
+/* Dropdown select personalizado */
+.custom-select {
+    cursor: pointer;
+    padding: 0;
+    overflow: visible;
+}
+
+.custom-select__trigger {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 18px 16px 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 14px;
+    color: #022CD4;
+    text-align: left;
+    width: 100%;
+    min-width: 0;
+}
+
+.custom-select > .form-field__icon {
+    margin-left: 18px;
+}
+
+.custom-select__current {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-select__current .fi {
+    width: 22px;
+    line-height: 16px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.custom-select__arrow {
+    width: 18px;
+    height: 18px;
+    color: #022CD4;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.custom-select.is-open .custom-select__arrow {
+    transform: rotate(180deg);
+}
+
+.custom-select__panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 2px solid #E8E8E8;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(2, 44, 212, 0.12);
+    z-index: 50;
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.custom-select__panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-select__panel::-webkit-scrollbar-thumb {
+    background: #D7DCEF;
+    border-radius: 4px;
+}
+
+.custom-select__panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-select__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: #022CD4;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.12s ease;
+    outline: none;
+}
+
+.custom-select__option:hover,
+.custom-select__option:focus-visible {
+    background: #F0F4FF;
+}
+
+.custom-select__option.is-active {
+    background: #E5ECFF;
+}
+
+.custom-select__option .fi {
+    flex-shrink: 0;
+    width: 24px;
+    line-height: 18px;
+    border-radius: 2px;
+}
+
+.custom-select__option-text {
+    line-height: 1.2;
+}
+
+/* Checkboxes */
+.form-checks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 6px;
+    margin-top: 8px;
+}
+
+.form-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+}
+
+.form-check__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.form-check__visual {
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid #022CD4;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: transparent;
+    transition: background-color 0.15s ease;
+    color: #ffffff;
+}
+
+.form-check__visual svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.form-check__input:checked + .form-check__visual {
+    background: #022CD4;
+}
+
+.form-check__input:checked + .form-check__visual svg {
+    opacity: 1;
+}
+
+.form-check__label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0E108A;
+    line-height: 1.4;
+}
+
+/* ---------- PASO 4 — confirma y asegura ---------- */
+.paso4-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    padding: 22px 32px;
+    background: #0020B8;
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 32, 184, 0.20);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(0, 32, 184, 0.28);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary__label {
+    flex: 1;
+    text-align: center;
+}
+
+.btn-primary__arrow {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.paso4-cta__note {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #062BD4;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    justify-content: center;
+}
+
+.paso4-cta__whatsapp {
+    width: 22px;
+    height: 22px;
+    color: #22923C;
+    flex-shrink: 0;
+}
+
+/* ---------- FRANJA DE BENEFICIOS ---------- */
+.beneficios {
+    padding: 16px 64px 32px;
+}
+
+.beneficios__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: #F8FBFF;
+    border-radius: 18px;
+    padding: 22px 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    align-items: center;
+}
+
+.beneficio {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 28px;
+    border-left: 4px solid #D7DCEF;
+}
+
+.beneficio:first-child {
+    border-left: none;
+    padding-left: 0;
+}
+
+.beneficio__icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.beneficio__content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.beneficio__title {
+    color: #022CD4;
+    font-weight: 800;
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.15;
+}
+
+.beneficio__desc {
+    color: #28316E;
+    font-weight: 700;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ---------- SECCIÓN SEDE ---------- */
+.sede {
+    padding: 40px 64px;
+}
+
+.sede__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.sede__media {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(20, 25, 80, 0.10);
+}
+
+.sede__media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.sede__info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.sede__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.sede__pin {
+    width: 28px;
+    height: 28px;
+    color: #022CD4;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.sede__pin--sm {
+    width: 22px;
+    height: 22px;
+}
+
+.sede__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sede__title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #022CD4;
+    margin: 0;
+    line-height: 1.15;
+}
+
+.sede__venue {
+    font-size: 22px;
+    font-weight: 800;
+    color: #022CD4;
+    margin: 0;
+    line-height: 1.15;
+}
+
+.sede__address {
+    font-size: 15px;
+    font-weight: 700;
+    color: #022CD4;
+    margin: 0;
+    line-height: 1.45;
+}
+
+.sede__desc {
+    font-size: 14px;
+    font-weight: 700;
+    color: #062BD4;
+    margin: 0;
+    line-height: 1.55;
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 22px;
+    border: 2px solid #022CD4;
+    border-radius: 12px;
+    color: #022CD4;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-outline:hover {
+    background: #022CD4;
+    color: #ffffff;
+}
+
+.btn-outline svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+    width: 100%;
+    margin-top: 24px;
+}
+
+/* Franja CTA superior (caja contenida azul claro) */
+.footer__cta {
+    padding: 16px 64px 32px;
+}
+
+.footer__cta-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: #F8FBFF;
+    border-radius: 18px;
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.footer__cta-icon {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.footer__cta-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.footer__cta-title {
+    margin: 0;
+    color: #0020B8;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.footer__cta-sub {
+    margin: 0;
+    color: #0020B8;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.footer__cta-btn {
+    width: auto;
+    padding: 18px 28px;
+    font-size: 16px;
+    flex-shrink: 0;
+    min-width: 320px;
+}
+
+/* 4 columnas principales */
+.footer__main {
+    padding: 24px 64px;
+}
+
+.footer__columns {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1.3fr 1fr;
+    gap: 0;
+    align-items: stretch;
+}
+
+.footer__col {
+    padding: 0 28px;
+    border-left: 3px solid #D7DCEF;
+}
+
+.footer__col:first-child {
+    border-left: none;
+    padding-left: 0;
+}
+
+/* Divisores y colores específicos por columna */
+.footer__col--contacto {
+    border-left-color: #0020B8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer__col--organizan {
+    border-left-color: #0020B8;
+}
+
+.footer__col--colab {
+    border-left-color: #121268;
+}
+
+.footer__col-title {
+    margin: 0 0 16px;
+    color: #0020B8;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.1;
+}
+
+.footer__col--colab .footer__col-title {
+    color: #121268;
+}
+
+/* Columna 1: marca */
+.footer__col--brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 14px;
+}
+
+.footer__logo {
+    height: 56px;
+    width: auto;
+    object-fit: contain;
+    align-self: flex-start;
+}
+
+.footer__tagline {
+    margin: 0;
+    color: #0020B8;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 1.5;
+    text-align: left;
+    padding-right: 70px;
+}
+
+.footer__social {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.footer__social-link {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #022CD4;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.footer__social-link:hover {
+    transform: translateY(-2px);
+    background: #0021B9;
+}
+
+.footer__social-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Columna 2: contacto */
+.footer__contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer__contact li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #0020B8;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.footer__contact svg {
+    width: 18px;
+    height: 18px;
+    color: #0020B8;
+    flex-shrink: 0;
+}
+
+/* Columnas 3 y 4: logos */
+.footer__logos {
+    display: flex;
+    gap: 25px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.footer__col--organizan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer__col--organizan .footer__col-title {
+    text-align: center;
+}
+
+.footer__col--organizan .footer__logos img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+.footer__col--colab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer__col--colab .footer__col-title {
+    text-align: center;
+}
+
+.footer__col--colab .footer__logos img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+.footer__logos img {
+    height: 54px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Franja inferior del footer */
+.footer__bottom {
+    padding: 18px 64px;
+    background: #F8FBFF;
+}
+
+.footer__bottom-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.footer__bottom p {
+    margin: 0;
+    color: #0020B8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.footer__legal {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.footer__legal a {
+    color: #0020B8;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.footer__legal a:hover {
+    color: #022CD4;
+}
+
+.footer__legal-divider {
+    color: #0020B8;
+    font-weight: 700;
+}
+
+/* ---------- ADAPTATIVO / RESPONSIVE ---------- */
+@media (max-width: 1024px) {
+    .hero {
+        padding: 0 24px 24px;
+    }
+
+    .hero__content {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .hero__badge-country {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 720px) {
+    .header__card {
+        gap: 20px;
+        padding: 12px 20px;
+    }
+
+    .header__logo {
+        height: 36px;
+    }
+
+    .hero__right {
+        grid-template-columns: 1fr;
+    }
+
+    .hero__congress-logo {
+        max-width: 300px;
+    }
+
+    .hero__date-day {
+        font-size: 56px;
+    }
+
+    .hero__date-year {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header__card {
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 0 0 18px 18px;
+    }
+
+    .header__logo {
+        height: 28px;
+    }
+}
