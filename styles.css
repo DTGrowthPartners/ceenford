@@ -328,20 +328,65 @@ html, body {
     line-height: 1;
 }
 
-/* ---------- FRANJA DE ALIADOS ---------- */
+/* ---------- FRANJA DE ALIADOS (carrusel infinito) ----------
+   Los logos se duplican en el HTML para hacer un loop seamless:
+   la pista se anima de translateX(-50%) a translateX(0), de modo
+   que los logos viajan visualmente de izquierda a derecha. Como la
+   primera mitad y la segunda mitad son idénticas, el "salto" al
+   reiniciar la animación es invisible. */
 .hero__partners {
     max-width: 1280px;
     margin: 18px auto 0;
-    display: flex;
-    justify-content: center;
+    overflow: hidden;
+    /* Fade en los bordes para que los logos no aparezcan/desaparezcan bruscamente */
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
 }
 
-.hero__partners-img {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    display: block;
+.hero__partners-track {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    width: max-content;
+    animation: partnersScroll 60s linear infinite;
+}
+
+.hero__partners-item {
+    height: 56px;
+    width: auto;
+    flex-shrink: 0;
     object-fit: contain;
+    display: block;
+}
+
+@keyframes partnersScroll {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+}
+
+/* Pausa al hover para que el usuario pueda mirar un logo en detalle */
+.hero__partners:hover .hero__partners-track {
+    animation-play-state: paused;
+}
+
+/* Accesibilidad: usuarios con prefers-reduced-motion no ven la animación */
+@media (prefers-reduced-motion: reduce) {
+    .hero__partners-track {
+        animation: none;
+        transform: translateX(0);
+    }
 }
 
 /* ---------- PASO (secciones) ---------- */
@@ -1835,21 +1880,18 @@ html, body {
         width: 2px;
     }
 
-    /* Banda de partners: scroll horizontal con scrollbar oculta */
+    /* Banda de partners en mobile: logos más pequeños, animación un poco más rápida */
     .hero__partners {
         margin-top: 14px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
-        padding-bottom: 4px;
     }
 
-    .hero__partners::-webkit-scrollbar {
-        display: none; /* Chrome / Safari */
+    .hero__partners-track {
+        gap: 36px;
+        animation-duration: 40s;
     }
 
-    .hero__partners-img {
-        min-width: 580px;
+    .hero__partners-item {
+        height: 38px;
     }
 
     /* ----- PASOS ----- */
