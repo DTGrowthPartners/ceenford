@@ -819,12 +819,7 @@ html, body {
     border: 3px solid #E8E8E8;
     border-radius: 8px;
     padding: 16px 18px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.form-field:focus-within {
-    border-color: #022CD4;
-    box-shadow: 0 2px 10px rgba(2, 44, 212, 0.08);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .form-field--full {
@@ -836,6 +831,10 @@ html, body {
     height: 22px;
     flex-shrink: 0;
     object-fit: contain;
+    /* Idle: ícono desaturado para sugerir "campo aún vacío".
+       Pasa a color original al hacer focus o cuando hay contenido. */
+    filter: grayscale(1) opacity(0.45);
+    transition: filter 0.2s ease;
 }
 
 .form-field__input {
@@ -852,9 +851,47 @@ html, body {
 }
 
 .form-field__input::placeholder {
-    color: #022CD4;
+    color: #9CA3AF;
     opacity: 1;
-    font-weight: 700;
+    font-weight: 600;
+}
+
+/* ----- Estados visuales: idle (gris) → hover → focus/filled (azul) -----
+   La idea: campos vacíos arrancan grises (sugieren "lléname") y pasan a
+   azul (color de marca) cuando el usuario los enfoca o ya los completó.
+
+   Detección de "filled":
+   - Inputs nativos: :not(:placeholder-shown) — true cuando el usuario tipeó algo
+   - Custom selects:  .is-filled en .custom-select__current (lo agrega script.js
+                      al seleccionar una opción)
+*/
+
+/* Hover: gris un poquito más oscuro + bg tinto sutil */
+.form-field:hover {
+    border-color: #BFC4D6;
+    background-color: #FBFCFE;
+}
+
+.form-field:hover .form-field__icon {
+    filter: grayscale(0.5) opacity(0.75);
+}
+
+/* Focus o filled: borde + ícono + placeholder en azul */
+.form-field:focus-within,
+.form-field:has(.form-field__input:not(:placeholder-shown)),
+.form-field:has(.custom-select__current.is-filled) {
+    border-color: #022CD4;
+    background-color: var(--color-white);
+}
+
+.form-field:focus-within {
+    box-shadow: 0 2px 10px rgba(2, 44, 212, 0.08);
+}
+
+.form-field:focus-within .form-field__icon,
+.form-field:has(.form-field__input:not(:placeholder-shown)) .form-field__icon,
+.form-field:has(.custom-select__current.is-filled) .form-field__icon {
+    filter: none;
 }
 
 /* Dropdown select personalizado */
@@ -876,10 +913,18 @@ html, body {
     font-family: var(--font-base);
     font-weight: 700;
     font-size: 14px;
-    color: #022CD4;
+    color: #9CA3AF; /* idle: gris (mismo color que el placeholder de los inputs) */
     text-align: left;
     width: 100%;
     min-width: 0;
+    transition: color 0.2s ease;
+}
+
+/* Texto del trigger pasa a azul cuando hay foco o ya se eligió opción */
+.form-field:focus-within .custom-select__trigger,
+.form-field:has(.custom-select__current.is-filled) .custom-select__trigger,
+.custom-select__current.is-filled {
+    color: #022CD4;
 }
 
 .custom-select > .form-field__icon {
@@ -906,13 +951,19 @@ html, body {
 .custom-select__arrow {
     width: 18px;
     height: 18px;
-    color: #022CD4;
+    color: #9CA3AF; /* idle: gris */
     flex-shrink: 0;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .custom-select.is-open .custom-select__arrow {
     transform: rotate(180deg);
+}
+
+/* Flecha también en azul cuando el campo tiene foco o ya seleccionó */
+.form-field:focus-within .custom-select__arrow,
+.form-field:has(.custom-select__current.is-filled) .custom-select__arrow {
+    color: #022CD4;
 }
 
 .custom-select__panel {
