@@ -39,3 +39,7 @@ node_modules/
 dist/
 build/
 .cache/
+
+# Scripts locales con credenciales y archivos de deploy (no commitear)
+deploy_helper.py
+_nginx_ceenford.conf

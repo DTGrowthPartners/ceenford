@@ -54,19 +54,90 @@ npx serve .
 
 Abrir `http://localhost:8000` (o el puerto que asigne el servidor).
 
-## Próximos pasos / handoff a backend
+## Envío del formulario y webhook
 
-El form del Paso 3 (`<form class="form-datos">`) está listo para conectarse:
+El formulario ya está cableado para hacer submit vía JS (ver `script.js`,
+función `initFormSubmit`). Al hacer click en "Continuar con mi registro":
 
-- Todos los inputs nativos (`<input>`) tienen `name` definidos: `nombre`, `ciudad`, `telefono`, `correo`, `institucion`, `terminos`, `confirma`
-- Los dropdowns custom **(País y Área profesional)** guardan el valor en un `<input type="hidden">` con `name="pais"` y `name="area"`, y disparan evento `change` al seleccionar — funcionan igual que un `<select>` nativo para el backend
-- Los radios del Paso 1 y Paso 2 tienen `name="opcion-paso1"` y `name="opcion-paso2"`
+1. Se valida que todos los campos requeridos estén llenos
+2. Se construye un JSON con los datos
+3. Si está configurada una URL de webhook, se envía un `POST` con el JSON
+4. Se muestra estado de éxito o error en la UI
 
-Para conectar:
+### Cómo conectar el webhook
 
-1. Agregar `action` y `method` al `<form>` (o un `submit` listener)
-2. Validar campos requeridos (todos están marcados con `required`)
-3. Manejar respuesta y redirigir a una página de confirmación
+Abrir `script.js` y completar:
+
+```js
+const FORM_CONFIG = {
+    webhookUrl: 'https://api.empresa.com/webhook/inscripciones',
+    sheetsUrl:  ''  // opcional, ver "Google Sheets"
+};
+```
+
+### Estructura del JSON que se envía
+
+```json
+{
+  "opcion_pago": "vip" | "hoy" | "registro",
+  "opcion_pago_label": "Valor VIP regular - 600 USD",
+  "tipo_participacion": "asistente" | "estudiante" | "ponente" | "patrocinador",
+  "tipo_participacion_label": "Asistente",
+  "nombre": "Juan Pérez",
+  "pais": "mx",
+  "ciudad": "Monterrey",
+  "telefono": "+52 555 123 4567",
+  "correo": "juan@ejemplo.com",
+  "area": "psicologia",
+  "institucion": "Universidad XYZ",
+  "acepta_terminos": true,
+  "confirma_registro": true,
+  "enviado_en": "2026-08-15T14:30:00.000Z",
+  "origen": "ceenford.dtgrowthpartners.com",
+  "user_agent": "Mozilla/5.0 ..."
+}
+```
+
+Los campos `*_label` incluyen el texto legible por humanos (útil para emails
+de confirmación). Los campos `pais` y `area` van como códigos cortos.
+
+### Guardar en Google Sheets (sin backend)
+
+La forma más simple es usar **Google Apps Script** como Web App:
+
+1. Crear una Google Sheet con columnas que coincidan con el JSON
+2. En la Sheet: `Extensiones → Apps Script`
+3. Pegar este código:
+
+```js
+function doPost(e) {
+    const data = JSON.parse(e.postData.contents);
+    const sheet = SpreadsheetApp.getActiveSheet();
+    sheet.appendRow([
+        data.enviado_en,
+        data.nombre,
+        data.correo,
+        data.telefono,
+        data.pais,
+        data.ciudad,
+        data.opcion_pago_label,
+        data.tipo_participacion_label,
+        data.area,
+        data.institucion || ''
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+        .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+4. `Implementar → Nueva implementación → Aplicación web`
+5. Ejecutar como: **Yo (tu cuenta)** · Acceso: **Cualquier persona**
+6. Copiar la URL `/exec` y pegarla en `FORM_CONFIG.sheetsUrl` de `script.js`
+
+> Apps Script maneja CORS automáticamente y no requiere credenciales en el
+> frontend (la autenticación se hace en el deploy del script). El archivo
+> JSON de credenciales que mencionaste **NO se debe subir al frontend** —
+> exponer un service account permitiría a cualquiera escribir/leer tu sheet.
 
 ## Compatibilidad
 

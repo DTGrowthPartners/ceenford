@@ -113,6 +113,178 @@
 
         // Inicializar animaciones fade-in al hacer scroll
         initFadeIn();
+
+        // Inicializar el handler del formulario de registro
+        initFormSubmit();
+    }
+
+    /**
+     * Configuración del envío del formulario
+     * ---------------------------------------
+     * Cuando llegue la URL del webhook de la otra empresa, ponla en
+     * `webhookUrl` y los datos se enviarán automáticamente al hacer submit.
+     *
+     * Si también quieres guardar a Google Sheets vía Apps Script, pon la
+     * URL del Web App en `sheetsUrl` (ver README para más info).
+     *
+     * Mientras estén vacíos, el submit solo imprime el JSON en consola y
+     * muestra el estado de éxito en la UI (útil para testing).
+     */
+    const FORM_CONFIG = {
+        webhookUrl: '',  // p.ej. 'https://api.empresa.com/webhook/inscripciones'
+        sheetsUrl:  ''   // p.ej. 'https://script.google.com/macros/s/.../exec'
+    };
+
+    /**
+     * Extrae todos los datos del form y arma un objeto plano listo para JSON.
+     * Incluye los radios fuera del <form> (vinculados via form="form-registro"),
+     * los inputs ocultos de los custom-select y los checkboxes.
+     */
+    function collectFormData(form) {
+        const data = new FormData(form);
+        const labelOpcionPago = {
+            vip: 'Valor VIP regular - 600 USD',
+            hoy: 'Valor HOY!! - 350 USD',
+            registro: 'Registrate ahora - 0 USD (pago en 15 dias)'
+        };
+        const labelTipoParticipacion = {
+            asistente: 'Asistente',
+            estudiante: 'Estudiante',
+            ponente: 'Ponente',
+            patrocinador: 'Patrocinador / Stand comercial'
+        };
+
+        const opcionPago = data.get('opcion-paso1');
+        const tipoPart  = data.get('opcion-paso2');
+
+        return {
+            // Selecciones de pasos 1 y 2
+            opcion_pago: opcionPago,
+            opcion_pago_label: labelOpcionPago[opcionPago] || null,
+            tipo_participacion: tipoPart,
+            tipo_participacion_label: labelTipoParticipacion[tipoPart] || null,
+
+            // Datos personales (paso 3)
+            nombre:      (data.get('nombre')      || '').trim(),
+            pais:        data.get('pais'),
+            ciudad:      (data.get('ciudad')      || '').trim(),
+            telefono:    (data.get('telefono')    || '').trim(),
+            correo:      (data.get('correo')      || '').trim().toLowerCase(),
+            area:        data.get('area'),
+            institucion: (data.get('institucion') || '').trim() || null,
+
+            // Aceptaciones (paso 3)
+            acepta_terminos:   data.get('terminos') === 'on',
+            confirma_registro: data.get('confirma') === 'on',
+
+            // Metadata útil para auditar el envío
+            enviado_en: new Date().toISOString(),
+            origen:     window.location.hostname,
+            user_agent: navigator.userAgent
+        };
+    }
+
+    /**
+     * Envía el payload al webhook configurado. Devuelve una Promise que
+     * resuelve true si todo salió bien, false si hubo error de red.
+     */
+    async function sendToWebhook(url, payload) {
+        if (!url) return null;
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            return res.ok;
+        } catch (err) {
+            console.error('[Form] Error enviando al webhook:', err);
+            return false;
+        }
+    }
+
+    /**
+     * Muestra el estado de éxito reemplazando el botón con un mensaje.
+     */
+    function showSuccess(form, submitBtn) {
+        const banner = document.createElement('div');
+        banner.className = 'form-success';
+        banner.setAttribute('role', 'status');
+        banner.innerHTML = `
+            <strong>¡Registro enviado!</strong>
+            <span>Recibirás la confirmación en tu correo y WhatsApp en breve.</span>
+        `;
+
+        if (submitBtn && submitBtn.parentNode) {
+            submitBtn.disabled = true;
+            submitBtn.parentNode.insertBefore(banner, submitBtn);
+        }
+
+        // Scrollear al banner para que el usuario lo vea
+        banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function showError(submitBtn, message) {
+        if (!submitBtn) return;
+        const banner = document.createElement('div');
+        banner.className = 'form-error';
+        banner.setAttribute('role', 'alert');
+        banner.textContent = message;
+        submitBtn.parentNode.insertBefore(banner, submitBtn);
+        setTimeout(() => banner.remove(), 6000);
+    }
+
+    function initFormSubmit() {
+        const form = document.getElementById('form-registro');
+        if (!form) return;
+
+        const submitBtn = document.querySelector('[form="form-registro"][type="submit"]');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // checkValidity() valida los required, pattern y custom dropdowns
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const payload = collectFormData(form);
+
+            // Imprime el JSON en consola para testing y para que el dev
+            // de backend vea la estructura exacta que va a recibir.
+            console.log('[Form] Payload listo para webhook:', payload);
+            console.log('[Form] JSON string:\n' + JSON.stringify(payload, null, 2));
+
+            // Estado visual: deshabilitar mientras se procesa
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                const labelEl = submitBtn.querySelector('.btn-primary__label');
+                if (labelEl) labelEl.textContent = 'Enviando...';
+            }
+
+            // Envío paralelo a webhook y a sheets (si están configurados)
+            const results = await Promise.allSettled([
+                sendToWebhook(FORM_CONFIG.webhookUrl, payload),
+                sendToWebhook(FORM_CONFIG.sheetsUrl,  payload)
+            ]);
+
+            const someConfigured = FORM_CONFIG.webhookUrl || FORM_CONFIG.sheetsUrl;
+            const someFailed = results.some(r => r.status === 'fulfilled' && r.value === false);
+
+            if (someConfigured && someFailed) {
+                // Re-habilitar el botón y mostrar error
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    const labelEl = submitBtn.querySelector('.btn-primary__label');
+                    if (labelEl) labelEl.textContent = 'Continuar con mi registro';
+                }
+                showError(submitBtn, 'No pudimos enviar tu registro. Intenta nuevamente en unos segundos.');
+                return;
+            }
+
+            showSuccess(form, submitBtn);
+        });
     }
 
     /**

@@ -1032,6 +1032,49 @@ html, body {
     line-height: 1.4;
 }
 
+/* ---------- Banners de feedback al enviar el formulario ---------- */
+.form-success,
+.form-error {
+    border-radius: 14px;
+    padding: 18px 22px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.4;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    animation: bannerSlideIn 0.4s ease-out;
+}
+
+.form-success {
+    background: #E8F7EC;
+    border: 2px solid #1D8834;
+    color: #1D8834;
+}
+
+.form-success strong {
+    font-size: 16px;
+}
+
+.form-error {
+    background: #FCEBEB;
+    border: 2px solid #C72B2B;
+    color: #C72B2B;
+}
+
+@keyframes bannerSlideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 6px 18px rgba(0, 32, 184, 0.10);
+}
+
 /* ---------- PASO 4 — confirma y asegura ---------- */
 .paso4-cta {
     display: flex;

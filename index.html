@@ -140,7 +140,7 @@
 
         <div class="paso__cards" role="radiogroup" aria-label="Elige tu opción de pago">
             <label class="opcion-card opcion-card--vip">
-                <input type="radio" name="opcion-paso1" value="vip" class="opcion-card__radio">
+                <input type="radio" name="opcion-paso1" value="vip" class="opcion-card__radio" form="form-registro" required>
                 <span class="opcion-card__radio-visual" aria-hidden="true"></span>
                 <span class="opcion-card__check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,7 +156,7 @@
             </label>
 
             <label class="opcion-card opcion-card--hoy">
-                <input type="radio" name="opcion-paso1" value="hoy" class="opcion-card__radio" checked>
+                <input type="radio" name="opcion-paso1" value="hoy" class="opcion-card__radio" form="form-registro" required>
                 <span class="opcion-card__radio-visual" aria-hidden="true"></span>
                 <span class="opcion-card__check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,7 +173,7 @@
             </label>
 
             <label class="opcion-card opcion-card--registro">
-                <input type="radio" name="opcion-paso1" value="registro" class="opcion-card__radio">
+                <input type="radio" name="opcion-paso1" value="registro" class="opcion-card__radio" form="form-registro" required>
                 <span class="opcion-card__radio-visual" aria-hidden="true"></span>
                 <span class="opcion-card__check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -209,7 +209,7 @@
 
         <div class="tipo-cards" role="radiogroup" aria-label="Tipo de participación">
             <label class="tipo-card">
-                <input type="radio" name="opcion-paso2" value="asistente" class="tipo-card__radio" checked>
+                <input type="radio" name="opcion-paso2" value="asistente" class="tipo-card__radio" form="form-registro" checked>
                 <span class="tipo-card__check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12.5L10 17.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -221,7 +221,7 @@
             </label>
 
             <label class="tipo-card">
-                <input type="radio" name="opcion-paso2" value="estudiante" class="tipo-card__radio">
+                <input type="radio" name="opcion-paso2" value="estudiante" class="tipo-card__radio" form="form-registro">
                 <span class="tipo-card__check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12.5L10 17.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -233,7 +233,7 @@
             </label>
 
             <label class="tipo-card">
-                <input type="radio" name="opcion-paso2" value="ponente" class="tipo-card__radio">
+                <input type="radio" name="opcion-paso2" value="ponente" class="tipo-card__radio" form="form-registro">
                 <span class="tipo-card__check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12.5L10 17.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -245,7 +245,7 @@
             </label>
 
             <label class="tipo-card">
-                <input type="radio" name="opcion-paso2" value="patrocinador" class="tipo-card__radio">
+                <input type="radio" name="opcion-paso2" value="patrocinador" class="tipo-card__radio" form="form-registro">
                 <span class="tipo-card__check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12.5L10 17.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -270,7 +270,7 @@
             </div>
         </div>
 
-        <form class="form-datos" novalidate>
+        <form id="form-registro" class="form-datos">
             <div class="form-datos__grid">
                 <div class="form-field">
                     <img src="img/iconos/nombre.svg" alt="" class="form-field__icon">
@@ -320,7 +320,7 @@
 
                 <div class="form-field">
                     <img src="img/iconos/telefono5.svg" alt="" class="form-field__icon">
-                    <input type="tel" placeholder="Teléfono / WhatsApp" class="form-field__input" name="telefono" required>
+                    <input type="tel" placeholder="Teléfono / WhatsApp (con indicativo, ej. +52 555 ...)" pattern="^\+\d[\d\s().-]{6,}$" title="Incluye el indicativo del país. Ej: +52 555 123 4567" class="form-field__input" name="telefono" required>
                 </div>
 
                 <div class="form-field">
@@ -389,7 +389,7 @@
         </div>
 
         <div class="paso4-cta">
-            <button type="submit" class="btn-primary">
+            <button type="submit" form="form-registro" class="btn-primary">
                 <span class="btn-primary__label">Continuar con mi registro</span>
                 <svg class="btn-primary__arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
