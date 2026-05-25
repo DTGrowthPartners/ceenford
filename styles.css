@@ -1572,6 +1572,8 @@ html, body {
     letter-spacing: normal;
     font-size: 22px;
     display: block;
+    color: #28316E;
+    padding-bottom: 18px;
 }
 
 /* Divisor horizontal entre fecha y sede dentro de la columna izquierda */
@@ -1621,7 +1623,7 @@ html, body {
 
 .confirmacion-detalles__sede-address {
     margin: 6px 0 0;
-    color: #022CD4;
+    color: #28316E;
     font-size: 14px;
     font-weight: 600;
     line-height: 1.45;
@@ -1633,13 +1635,13 @@ html, body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 18px;
 }
 
 .confirmacion-detalles__lista li {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     color: #022CD4;
     font-weight: 600;
     font-size: 14px;
@@ -1671,7 +1673,7 @@ html, body {
 .confirmacion-credenciales__title {
     font-size: 26px;
     font-weight: 800;
-    color: var(--color-blue);
+    color: #28316E;
     margin: 0 0 8px;
     line-height: 1.2;
     display: inline-flex;
@@ -1751,50 +1753,78 @@ html, body {
     line-height: 1.4;
 }
 
-/* Botón "Descargar" en dorado (no azul outline) — matches review */
+/* Botón "Descargar" con gradiente amarillo/dorado, texto azul oscuro */
 .credencial-card__btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--color-gold);
+    gap: 10px;
+    background: linear-gradient(180deg, #FCC531 0%, #DD9300 100%);
     border: none;
-    color: #ffffff;
+    color: #28316E;
     font-family: var(--font-base);
-    font-weight: 700;
-    font-size: 14px;
-    padding: 10px 20px;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 12px 26px;
     border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
     flex-shrink: 0;
-    box-shadow: 0 4px 10px rgba(217, 178, 71, 0.30);
-    transition: background-color 0.15s ease, transform 0.15s ease,
-                box-shadow 0.15s ease;
+    box-shadow: 0 4px 10px rgba(221, 147, 0, 0.30);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
 
 .credencial-card__btn:hover {
-    background: #C49A2F;
     transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(217, 178, 71, 0.40);
+    box-shadow: 0 6px 16px rgba(221, 147, 0, 0.40);
+    filter: brightness(1.05);
 }
 
-.credencial-card__btn svg {
+.credencial-card__btn-icon {
     width: 16px;
     height: 16px;
+    object-fit: contain;
 }
 
-.confirmacion-credenciales__nota {
-    font-size: 13px;
-    color: #4b5563;
-    font-weight: 500;
-    margin: 0 0 22px;
+/* Caja informativa: ícono escudo + texto + ilustración ciudad */
+.confirmacion-credenciales__nota-box {
+    background: #E9F0FF;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 18px 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    overflow: hidden;
+}
+
+.confirmacion-credenciales__nota-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.confirmacion-credenciales__nota-text {
+    flex: 1;
+    margin: 0;
+    color: #28316E;
+    font-size: 14px;
+    font-weight: 600;
     line-height: 1.5;
-    font-style: italic;
+    text-align: left;
+}
+
+.confirmacion-credenciales__nota-illustration {
+    height: 64px;
+    width: auto;
+    flex-shrink: 0;
+    object-fit: contain;
 }
 
 .confirmacion-credenciales__finalizar {
-    max-width: 480px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
 }
 
 /* ----- ¿Qué encontrarás? (6 features) ----- */
@@ -2045,6 +2075,24 @@ html, body {
         font-size: 22px;
         flex-direction: column;
         gap: 8px;
+    }
+
+    .confirmacion-credenciales__nota-box {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .confirmacion-credenciales__nota-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .confirmacion-credenciales__nota-illustration {
+        display: none; /* en mobile la ciudad estorba el texto */
+    }
+
+    .confirmacion-credenciales__nota-text {
+        font-size: 13px;
     }
 
     .confirmacion-features__grid {
