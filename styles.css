@@ -1916,73 +1916,104 @@ html, body {
     padding: 32px 64px 48px;
 }
 
+/* Una sola caja azul claro con las dos columnas + divisor vertical */
 .confirmacion-importante__inner {
     max-width: 1280px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 40px;
-    align-items: start;
+    grid-template-columns: 1fr 2px 1.3fr;
+    gap: 36px;
+    align-items: center;
+    background: #E9F0FF;
+    border-radius: 16px;
+    padding: 28px 36px;
 }
 
+/* Asignación explícita de columnas (mismo motivo que en fecha+incluye) */
+.confirmacion-importante__col--alerta { grid-column: 1; }
+.confirmacion-importante__col--proximamente { grid-column: 3; }
+
+/* Divisor vertical entre las dos columnas */
+.confirmacion-importante__inner::before {
+    content: '';
+    grid-column: 2;
+    grid-row: 1;
+    align-self: stretch;
+    background: #022FC6;
+    opacity: 0.25;
+    border-radius: 2px;
+    min-height: 120px;
+}
+
+/* Columna IMPORTANTE: círculo con bell + texto a la derecha */
 .confirmacion-importante__col--alerta {
-    background: #FFF7E5;
-    border-left: 6px solid #D9B247;
-    border-radius: 12px;
-    padding: 22px 26px;
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
+    gap: 18px;
+    background: transparent;
+    border-left: none;
+    padding: 0;
 }
 
 .confirmacion-importante__alerta-icon {
-    width: 44px;
-    height: 44px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background: #D9B247;
-    color: #ffffff;
+    background: #FFFFFF;
+    color: #022CD4;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 10px rgba(217, 178, 71, 0.30);
+    box-shadow: 0 4px 12px rgba(2, 44, 212, 0.08);
 }
 
 .confirmacion-importante__alerta-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
+}
+
+.confirmacion-importante__alerta-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .confirmacion-importante__col--alerta .confirmacion-importante__title {
-    color: #A37B17;
-    font-size: 18px;
-    margin: 0 0 8px;
-    letter-spacing: 0.06em;
+    color: #022CD4;
+    font-size: 20px;
+    margin: 0;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+}
+
+/* Acento dorado bajo el título "IMPORTANTE" */
+.confirmacion-importante__accent {
+    display: block;
+    width: 56px;
+    height: 3px;
+    background: #D9B247;
+    border-radius: 2px;
+    margin-top: 2px;
 }
 
 .confirmacion-importante__col--alerta .confirmacion-importante__text {
     color: #28316E;
     font-size: 14px;
     font-weight: 600;
-    margin: 0;
+    margin: 4px 0 0;
     line-height: 1.55;
 }
 
+/* Columna PRÓXIMAMENTE */
 .confirmacion-importante__col--proximamente .confirmacion-importante__title {
-    font-size: 22px;
-    color: var(--color-blue);
-    margin: 0 0 16px;
+    font-size: 20px;
+    color: #022CD4;
+    margin: 0 0 14px;
     font-weight: 800;
     line-height: 1.2;
-}
-
-.confirmacion-importante__title {
-    text-transform: uppercase;
-    font-weight: 800;
-}
-
-.confirmacion-importante__col--proximamente .confirmacion-importante__title {
     text-transform: none;
+    letter-spacing: normal;
 }
 
 .confirmacion-importante__lista {
@@ -1991,17 +2022,24 @@ html, body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .confirmacion-importante__lista li {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: #022CD4;
+    color: #28316E;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.4;
+}
+
+.confirmacion-importante__list-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    color: #022CD4;
 }
 
 /* ----- Responsive de la página de confirmación ----- */
@@ -2063,7 +2101,19 @@ html, body {
     }
     .confirmacion-importante__inner {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
+        padding: 24px;
+    }
+    /* En 1col, el divisor vertical desaparece;
+       en su lugar separamos con border-top en la 2da columna. */
+    .confirmacion-importante__inner::before {
+        display: none;
+    }
+    .confirmacion-importante__col--alerta { grid-column: 1; }
+    .confirmacion-importante__col--proximamente {
+        grid-column: 1;
+        border-top: 2px solid rgba(2, 47, 198, 0.25);
+        padding-top: 20px;
     }
 }
 
