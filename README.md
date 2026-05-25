@@ -64,16 +64,53 @@ función `initFormSubmit`). Al hacer click en "Continuar con mi registro":
 3. Si está configurada una URL de webhook, se envía un `POST` con el JSON
 4. Se muestra estado de éxito o error en la UI
 
-### Cómo conectar el webhook
+### Conexión con la API de Ceenford
 
-Abrir `script.js` y completar:
+La integración con la API oficial (`https://api.ceenford.org/API/index.php`)
+ya está implementada. El payload interno se transforma al esquema que
+espera la API antes de enviarlo (función `payloadToCeenfordApi` en `script.js`).
+
+**Mapping de campos:**
+
+| Interno (nuestro) | API Ceenford       | Notas |
+|-------------------|--------------------|-------|
+| `nombre`          | `name`             | requerido |
+| `correo`          | `email`            | requerido |
+| `pais` (código)   | `country`          | se manda el **nombre completo** ("México") leído del custom-select, no el código |
+| `telefono`        | `phone`            | |
+| `ciudad`          | `city`             | la API lo guarda dentro de `message` |
+| `area`            | `professionl_area` | ⚠️ typo del lado de ellos (sin la "a" final) |
+| `institucion`     | `company`          | |
+| `id`              | `document`         | referencia cruzada con la sheet |
+| —                 | `event`            | viene de `FORM_CONFIG.eventId` (default: `'monterrey-2026'`) |
+| —                 | `source`           | `window.location.hostname` |
+| `opcion_pago_label` + `tipo_participacion_label` | `message` | "Opción de pago: 350 USD \| Tipo de participación: Asistente" |
+
+La API responde con su propio `consecutive` (6 dígitos random, único por
+`event`). Nuestro `id` con timestamp se sigue mandando como `document`
+para poder correlacionar ambos registros.
+
+### Configuración
 
 ```js
 const FORM_CONFIG = {
-    webhookUrl: 'https://api.empresa.com/webhook/inscripciones',
-    sheetsUrl:  ''  // opcional, ver "Google Sheets"
+    webhookUrl: 'https://api.ceenford.org/API/index.php',
+    sheetsUrl:  'https://script.google.com/macros/s/.../exec',
+    eventId:    'monterrey-2026'   // identificador del evento
 };
 ```
+
+### ⚠️ CORS
+
+Mientras el sitio esté hosteado en un dominio distinto al de la API
+(p. ej. `ceenford.dtgrowthpartners.com` ≠ `api.ceenford.org`), el browser
+puede bloquear la petición a la API con error CORS. Para producción se
+asume que el sitio quedará en infra de Ceenford (mismo origen) o que el
+dev habilitará `Access-Control-Allow-Origin` en su servidor.
+
+**Mientras tanto**: si la API falla por CORS, Google Sheets sigue
+recibiendo todos los datos como backup. El form muestra éxito si al
+menos uno de los dos destinos respondió OK.
 
 ### Estructura del JSON que se envía
 

@@ -173,19 +173,83 @@
     /**
      * Configuración del envío del formulario
      * ---------------------------------------
-     * Cuando llegue la URL del webhook de la otra empresa, ponla en
-     * `webhookUrl` y los datos se enviarán automáticamente al hacer submit.
+     * El form envía cada inscripción a dos destinos en paralelo:
      *
-     * Si también quieres guardar a Google Sheets vía Apps Script, pon la
-     * URL del Web App en `sheetsUrl` (ver README para más info).
+     * 1. webhookUrl → API oficial de Ceenford (su sistema con base de
+     *    datos). El payload se transforma al esquema que la API espera
+     *    (ver payloadToCeenfordApi más abajo).
      *
-     * Mientras estén vacíos, el submit solo imprime el JSON en consola y
-     * muestra el estado de éxito en la UI (útil para testing).
+     * 2. sheetsUrl  → Google Apps Script que guarda en una hoja como
+     *    backup / auditoría con el detalle completo (incluyendo opción
+     *    de pago, tipo de participación, IDs, etc.).
+     *
+     * Si alguna URL está vacía, se omite ese destino.
      */
     const FORM_CONFIG = {
-        webhookUrl: '',  // p.ej. 'https://api.empresa.com/webhook/inscripciones'
-        sheetsUrl:  'https://script.google.com/macros/s/AKfycbyYsL9yLQJNl_HXMYim6HMhQBrW-LbhujnnkSjxVLiQHX4Jm56oDfHnwyyHfyOr0LIkCQ/exec'
+        webhookUrl: 'https://api.ceenford.org/API/index.php',
+        sheetsUrl:  'https://script.google.com/macros/s/AKfycbyYsL9yLQJNl_HXMYim6HMhQBrW-LbhujnnkSjxVLiQHX4Jm56oDfHnwyyHfyOr0LIkCQ/exec',
+
+        // Identificador del evento al que pertenecen las inscripciones.
+        // La API de Ceenford genera un "consecutive" único por evento.
+        // Confirmar con el dev de ellos el formato exacto que esperan.
+        eventId: 'monterrey-2026'
     };
+
+    /**
+     * Lee el texto visible (label) del custom-select identificado por
+     * data-name. Por ejemplo para "pais" devuelve "México" en lugar del
+     * código "mx". Útil para mandar al API de Ceenford los nombres
+     * completos en vez de códigos ISO.
+     */
+    function getCustomSelectLabel(name) {
+        const select = document.querySelector('.custom-select[data-name="' + name + '"]');
+        if (!select) return null;
+        const current = select.querySelector('.custom-select__current');
+        if (!current || !current.classList.contains('is-filled')) return null;
+
+        // Si tiene bandera (en país), excluirla del texto para devolver
+        // solo el nombre del país sin el emoji/imagen.
+        const clone = current.cloneNode(true);
+        const flag = clone.querySelector('.fi');
+        if (flag) flag.remove();
+        return clone.textContent.trim();
+    }
+
+    /**
+     * Transforma nuestro payload interno al esquema que espera la API
+     * oficial de Ceenford (api.ceenford.org/API/index.php).
+     *
+     * Mapping:
+     *   nombre        → name          (requerido)
+     *   correo        → email         (requerido)
+     *   pais          → country       (nombre completo, no código)
+     *   telefono      → phone
+     *   ciudad        → city          (API lo guarda dentro de message)
+     *   area          → professionl_area  (typo del lado de ellos)
+     *   institucion   → company
+     *   id (nuestro)  → document      (referencia cruzada con la sheet)
+     *   FORM_CONFIG.eventId → event   (la API genera un consecutive por evento)
+     *   window.hostname → source
+     *   opción pago + tipo → message  (no hay campos específicos en su API)
+     */
+    function payloadToCeenfordApi(payload) {
+        const pago = payload.opcion_pago_label || payload.opcion_pago || '';
+        const tipo = payload.tipo_participacion_label || payload.tipo_participacion || '';
+
+        return {
+            name:             payload.nombre,
+            email:            payload.correo,
+            country:          getCustomSelectLabel('pais') || payload.pais,
+            phone:            payload.telefono,
+            city:             payload.ciudad,
+            professionl_area: getCustomSelectLabel('area') || payload.area,
+            company:          payload.institucion || '',
+            event:            FORM_CONFIG.eventId,
+            source:           window.location.hostname,
+            document:         payload.id,
+            message:          'Opción de pago: ' + pago + ' | Tipo de participación: ' + tipo
+        };
+    }
 
     /**
      * Genera un ID consecutivo irrepetible basado en el timestamp UTC.
@@ -353,6 +417,8 @@
             }
 
             const payload = collectFormData(form);
+            // Payload transformado al esquema de la API de Ceenford
+            const apiPayload = payloadToCeenfordApi(payload);
 
             // Estado visual: deshabilitar mientras se procesa
             if (submitBtn) {
@@ -361,17 +427,27 @@
                 if (labelEl) labelEl.textContent = 'Enviando...';
             }
 
-            // Envío paralelo a webhook y a sheets (si están configurados)
+            // Envío paralelo: API de Ceenford (con su esquema) y
+            // Google Sheets (con nuestro payload completo de auditoría)
             const results = await Promise.allSettled([
-                sendToWebhook(FORM_CONFIG.webhookUrl, payload),
-                sendToWebhook(FORM_CONFIG.sheetsUrl,  payload)
+                sendToWebhook(FORM_CONFIG.webhookUrl, apiPayload),
+                sendToWebhook(FORM_CONFIG.sheetsUrl, payload)
             ]);
 
-            const someConfigured = FORM_CONFIG.webhookUrl || FORM_CONFIG.sheetsUrl;
-            const someFailed = results.some(r => r.status === 'fulfilled' && r.value === false);
+            // Consideramos éxito si AL MENOS UNO de los destinos funcionó.
+            // Si la API de Ceenford falla por CORS u otra cosa, Google Sheets
+            // queda como respaldo confiable; en producción ambos funcionarán.
+            const configuredCount = [
+                FORM_CONFIG.webhookUrl,
+                FORM_CONFIG.sheetsUrl
+            ].filter(Boolean).length;
 
-            if (someConfigured && someFailed) {
-                // Re-habilitar el botón y mostrar error
+            const successCount = results.filter(
+                (r) => r.status === 'fulfilled' && r.value === true
+            ).length;
+
+            if (configuredCount > 0 && successCount === 0) {
+                // Todos los destinos fallaron → re-habilitar y mostrar error
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     const labelEl = submitBtn.querySelector('.btn-primary__label');
