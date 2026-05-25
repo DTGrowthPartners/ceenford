@@ -1385,6 +1385,650 @@ html, body {
     height: 18px;
 }
 
+/* ========================================================
+   PÁGINA DE CONFIRMACIÓN (gracias.html)
+   Reutiliza .hero, .header y .footer del index. El resto son
+   secciones nuevas específicas de esta página.
+   ======================================================== */
+
+/* ----- Hero de confirmación: 2 columnas (texto izq + imagen der) ----- */
+.hero--confirmacion {
+    padding-bottom: 40px;
+}
+
+.confirmacion-hero {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 12px 32px 0;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.confirmacion-hero__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.confirmacion-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-white);
+    color: #022CD4;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 6px 22px 6px 6px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 4px 12px rgba(2, 44, 212, 0.10);
+    border: 2px solid #DDE3F5;
+}
+
+.confirmacion-hero__badge-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #022CD4;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.confirmacion-hero__badge-circle svg {
+    width: 16px;
+    height: 16px;
+}
+
+.confirmacion-hero__title {
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.05;
+    color: var(--color-blue);
+    margin: 0;
+    letter-spacing: -0.02em;
+    text-align: left;
+}
+
+.confirmacion-hero__subtitle {
+    font-size: 17px;
+    color: #28316E;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.confirmacion-hero__subtitle strong {
+    font-weight: 700;
+}
+
+.confirmacion-hero__body {
+    font-size: 14px;
+    color: #4b5563;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.55;
+    max-width: 620px;
+    text-align: left;
+}
+
+.confirmacion-hero__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirmacion-hero__img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    display: block;
+}
+
+/* ----- Fecha + Incluye (2 columnas) ----- */
+.confirmacion-detalles {
+    padding: 32px 64px;
+}
+
+.confirmacion-detalles__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.confirmacion-detalles__col--fecha {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.confirmacion-detalles__title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0020B8;
+    margin: 0;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.confirmacion-detalles__title-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.confirmacion-detalles__col--incluye .confirmacion-detalles__title {
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 20px;
+    display: block;
+}
+
+.confirmacion-detalles__fecha {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.confirmacion-detalles__day {
+    font-weight: 900;
+    font-size: 42px;
+    color: var(--color-blue);
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.confirmacion-detalles__year {
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--color-blue);
+    line-height: 1.2;
+}
+
+.confirmacion-detalles__sede {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.confirmacion-detalles__pin {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    object-fit: contain;
+}
+
+.confirmacion-detalles__sede-name {
+    margin: 0;
+    color: #022CD4;
+    font-size: 17px;
+    line-height: 1.25;
+}
+
+.confirmacion-detalles__sede-address {
+    margin: 6px 0 0;
+    color: #022CD4;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.confirmacion-detalles__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.confirmacion-detalles__lista li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #022CD4;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Check icon circular (azul filled con tick blanco) — usado en
+   "En tu registro incluye" y en "Próximamente recibirás" */
+.check-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+/* ----- Credenciales y descargas ----- */
+.confirmacion-credenciales {
+    padding: 32px 64px;
+    background: #F8FBFF;
+}
+
+.confirmacion-credenciales__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.confirmacion-credenciales__title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--color-blue);
+    margin: 0 0 8px;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.confirmacion-credenciales__title-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.confirmacion-credenciales__subtitle {
+    color: #28316E;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 28px;
+    line-height: 1.5;
+}
+
+.confirmacion-credenciales__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.credencial-card {
+    background: var(--color-white);
+    border: 2px solid #E5E7EB;
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: left;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.credencial-card:hover {
+    border-color: #022CD4;
+    box-shadow: 0 4px 12px rgba(2, 44, 212, 0.08);
+}
+
+.credencial-card__icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.credencial-card__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.credencial-card__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #022CD4;
+    margin: 0;
+    line-height: 1.25;
+}
+
+.credencial-card__desc {
+    font-size: 13px;
+    color: #4b5563;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Botón "Descargar" en dorado (no azul outline) — matches review */
+.credencial-card__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-gold);
+    border: none;
+    color: #ffffff;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(217, 178, 71, 0.30);
+    transition: background-color 0.15s ease, transform 0.15s ease,
+                box-shadow 0.15s ease;
+}
+
+.credencial-card__btn:hover {
+    background: #C49A2F;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(217, 178, 71, 0.40);
+}
+
+.credencial-card__btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.confirmacion-credenciales__nota {
+    font-size: 13px;
+    color: #4b5563;
+    font-weight: 500;
+    margin: 0 0 22px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.confirmacion-credenciales__finalizar {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+/* ----- ¿Qué encontrarás? (6 features) ----- */
+.confirmacion-features {
+    padding: 40px 64px;
+}
+
+.confirmacion-features__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.confirmacion-features__title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--color-blue);
+    margin: 0 0 28px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.confirmacion-features__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.feature-card__icon {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.feature-card__title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #022CD4;
+    margin: 0;
+    line-height: 1.25;
+}
+
+/* ----- IMPORTANTE + Próximamente recibirás ----- */
+.confirmacion-importante {
+    padding: 32px 64px 48px;
+}
+
+.confirmacion-importante__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.confirmacion-importante__col--alerta {
+    background: #FFF7E5;
+    border-left: 6px solid #D9B247;
+    border-radius: 12px;
+    padding: 22px 26px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.confirmacion-importante__alerta-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #D9B247;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(217, 178, 71, 0.30);
+}
+
+.confirmacion-importante__alerta-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.confirmacion-importante__col--alerta .confirmacion-importante__title {
+    color: #A37B17;
+    font-size: 18px;
+    margin: 0 0 8px;
+    letter-spacing: 0.06em;
+}
+
+.confirmacion-importante__col--alerta .confirmacion-importante__text {
+    color: #28316E;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.55;
+}
+
+.confirmacion-importante__col--proximamente .confirmacion-importante__title {
+    font-size: 22px;
+    color: var(--color-blue);
+    margin: 0 0 16px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.confirmacion-importante__title {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.confirmacion-importante__col--proximamente .confirmacion-importante__title {
+    text-transform: none;
+}
+
+.confirmacion-importante__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.confirmacion-importante__lista li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #022CD4;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+/* ----- Responsive de la página de confirmación ----- */
+@media (max-width: 1024px) {
+    .confirmacion-hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 12px 24px 0;
+    }
+    .confirmacion-hero__left {
+        align-items: center;
+        text-align: center;
+    }
+    .confirmacion-hero__title,
+    .confirmacion-hero__subtitle,
+    .confirmacion-hero__body {
+        text-align: center;
+    }
+    .confirmacion-hero__img {
+        max-width: 380px;
+    }
+
+    .confirmacion-detalles {
+        padding: 28px 24px;
+    }
+    .confirmacion-detalles__inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .confirmacion-credenciales {
+        padding: 28px 24px;
+    }
+
+    .confirmacion-features {
+        padding: 32px 24px;
+    }
+    .confirmacion-features__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .confirmacion-importante {
+        padding: 28px 24px 40px;
+    }
+    .confirmacion-importante__inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 720px) {
+    .hero--confirmacion {
+        padding-bottom: 32px;
+    }
+    .confirmacion-hero {
+        padding: 12px 20px 0;
+        gap: 18px;
+    }
+    .confirmacion-hero__title {
+        font-size: clamp(30px, 9vw, 48px);
+    }
+    .confirmacion-hero__subtitle {
+        font-size: 15px;
+    }
+    .confirmacion-hero__body {
+        font-size: 13px;
+    }
+    .confirmacion-hero__img {
+        max-width: 280px;
+    }
+
+    .confirmacion-detalles {
+        padding: 22px 16px;
+    }
+
+    .credencial-card {
+        padding: 14px 14px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .credencial-card__icon {
+        width: 36px;
+        height: 36px;
+    }
+    .credencial-card__title {
+        font-size: 14px;
+    }
+    .credencial-card__desc {
+        font-size: 12px;
+    }
+    .credencial-card__btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .confirmacion-credenciales__title {
+        font-size: 22px;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .confirmacion-features__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .feature-card__icon {
+        width: 44px;
+        height: 44px;
+    }
+    .feature-card__title {
+        font-size: 13px;
+    }
+
+    .confirmacion-importante__col--alerta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .confirmacion-features__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .credencial-card__btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* ---------- FOOTER ---------- */
 .footer {
     width: 100%;

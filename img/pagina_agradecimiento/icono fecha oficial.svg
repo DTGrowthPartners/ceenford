@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 54.55 54.55">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Degradado_sin_nombre_39);
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="Degradado_sin_nombre_39" data-name="Degradado sin nombre 39" x1="0" y1="27.28" x2="54.55" y2="27.28" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#022fc6"/>
+      <stop offset="1" stop-color="#28316e"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-1" width="54.55" height="54.55" rx="12" ry="12"/>
+  <g>
+    <path class="cls-2" d="m40.55,13.84h-2.54v1.86c.24.28.38.64.38,1.04,0,.89-.72,1.61-1.61,1.61s-1.61-.72-1.61-1.61c0-.4.14-.76.38-1.04v-1.86h-4.14v1.86c.24.28.38.64.38,1.04,0,.89-.72,1.61-1.61,1.61s-1.61-.72-1.61-1.61c0-.4.14-.76.38-1.04v-1.86h-4.14v1.86c.24.28.38.64.38,1.04,0,.89-.72,1.61-1.61,1.61s-1.61-.72-1.61-1.61c0-.4.14-.76.38-1.04v-1.86h-4.14v1.86c.24.28.38.64.38,1.04,0,.89-.72,1.61-1.61,1.61s-1.61-.72-1.61-1.61c0-.4.14-.76.38-1.04v-1.86h-2.54c-.71,0-1.29.58-1.29,1.29v5.05c0,.71.58,1.29,1.29,1.29h.03v19.61c0,.99.8,1.79,1.79,1.79h23.65c.99,0,1.79-.8,1.79-1.79v-19.61h.03c.71,0,1.29-.58,1.29-1.29v-5.05c0-.71-.58-1.29-1.29-1.29Zm-1.03,27.25c0,.44-.35.79-.79.79H15.08c-.44,0-.79-.35-.79-.79v-19.61h25.23v19.61Z"/>
+    <rect class="cls-2" x="16.17" y="10.72" width="1.7" height="6.33" rx=".85" ry=".85"/>
+    <rect class="cls-2" x="22.76" y="10.72" width="1.7" height="6.33" rx=".85" ry=".85"/>
+    <rect class="cls-2" x="29.35" y="10.72" width="1.7" height="6.33" rx=".85" ry=".85"/>
+    <rect class="cls-2" x="35.94" y="10.72" width="1.7" height="6.33" rx=".85" ry=".85"/>
+    <rect class="cls-2" x="15.34" y="22.38" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="21.37" y="22.38" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="27.41" y="22.38" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="33.44" y="22.38" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="15.34" y="27.28" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="21.37" y="27.28" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="27.41" y="27.28" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="33.44" y="27.28" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="15.34" y="32.18" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="21.37" y="32.18" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="27.41" y="32.18" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="33.44" y="32.18" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="15.34" y="37.09" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="21.37" y="37.09" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+    <rect class="cls-2" x="27.41" y="37.09" width="5.03" height="3.89" rx="1.94" ry="1.94"/>
+  </g>
+</svg>
