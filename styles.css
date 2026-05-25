@@ -1496,25 +1496,25 @@ html, body {
 }
 
 .confirmacion-detalles__inner {
-    max-width: 1280px;
+    max-width: 980px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: 1fr 2px 1fr;
+    gap: 40px;
     align-items: start;
     position: relative;
 }
 
-/* Divisor vertical entre la columna fecha y la columna incluye */
+/* Divisor vertical entre la columna fecha y la columna incluye.
+   Lo hacemos como una "celda" del grid (2px de ancho) en lugar de
+   un pseudo-elemento absoluto, así escala bien con la altura real
+   de las columnas. */
 .confirmacion-detalles__inner::before {
     content: '';
-    position: absolute;
-    left: 50%;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
+    grid-column: 2;
+    align-self: stretch;
     background: #E5ECFF;
-    transform: translateX(-50%);
+    border-radius: 2px;
 }
 
 .confirmacion-detalles__col--fecha {
@@ -1640,13 +1640,14 @@ html, body {
     line-height: 1.4;
 }
 
-/* Check icon circular (azul filled con tick blanco) — usado en
-   "En tu registro incluye" y en "Próximamente recibirás" */
+/* Check icon — cuadrado azul con tick blanco, esquinas redondeadas.
+   Usado en "En tu registro incluye" y en "Próximamente recibirás". */
 .check-icon {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
     object-fit: contain;
+    border-radius: 6px;
 }
 
 /* ----- Credenciales y descargas ----- */
