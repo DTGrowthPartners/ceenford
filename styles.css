@@ -1505,6 +1505,11 @@ html, body {
     position: relative;
 }
 
+/* Asignamos las columnas del grid explícitamente, porque el ::before
+   también ocupa una celda y sin asignación se desfasaría el orden. */
+.confirmacion-detalles__col--fecha   { grid-column: 1; }
+.confirmacion-detalles__col--incluye { grid-column: 3; }
+
 /* Divisor vertical entre la columna fecha y la columna incluye.
    Lo hacemos como una "celda" del grid (2px de ancho) en lugar de
    un pseudo-elemento absoluto, así escala bien con la altura real
@@ -1512,6 +1517,7 @@ html, body {
 .confirmacion-detalles__inner::before {
     content: '';
     grid-column: 2;
+    grid-row: 1;
     align-self: stretch;
     background: #E5ECFF;
     border-radius: 2px;
@@ -1647,7 +1653,7 @@ html, body {
     height: 24px;
     flex-shrink: 0;
     object-fit: contain;
-    border-radius: 6px;
+    border-radius: 50%;
 }
 
 /* ----- Credenciales y descargas ----- */
