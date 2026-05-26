@@ -370,27 +370,6 @@
         }
     }
 
-    /**
-     * Muestra el estado de éxito reemplazando el botón con un mensaje.
-     */
-    function showSuccess(form, submitBtn) {
-        const banner = document.createElement('div');
-        banner.className = 'form-success';
-        banner.setAttribute('role', 'status');
-        banner.innerHTML = `
-            <strong>¡Registro enviado!</strong>
-            <span>Recibirás la confirmación en tu correo y WhatsApp en breve.</span>
-        `;
-
-        if (submitBtn && submitBtn.parentNode) {
-            submitBtn.disabled = true;
-            submitBtn.parentNode.insertBefore(banner, submitBtn);
-        }
-
-        // Scrollear al banner para que el usuario lo vea
-        banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
     function showError(submitBtn, message) {
         if (!submitBtn) return;
         const banner = document.createElement('div');
@@ -457,7 +436,14 @@
                 return;
             }
 
-            showSuccess(form, submitBtn);
+            // Éxito → redirigir a la página de confirmación.
+            // Pasamos el nombre y el ID como params por si en el futuro
+            // la página de gracias quiere personalizar el saludo.
+            const params = new URLSearchParams({
+                nombre: (payload.nombre || '').split(' ')[0],
+                id:     payload.id || ''
+            });
+            window.location.href = 'gracias.html?' + params.toString();
         });
     }
 
