@@ -16,6 +16,7 @@
 
     <!-- Open Graph -->
      
+    
     <meta property="og:type" content="website">
     <meta property="og:title" content="Registro confirmado - CEENFORD Monterrey 2026">
     <meta property="og:description" content="Tu inscripción al XII Congreso Internacional fue confirmada.">
@@ -28,8 +29,242 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+     <!-- Estilos específicos para esta página -->
+    <style>
+        /* Ajustes específicos para mobile en esta página */
+        @media (max-width: 768px) {
+            /* FORZAR apilamiento vertical de las columnas en detalles - MÁS ESPECÍFICO */
+            .confirmacion-detalles .confirmacion-detalles__inner {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            .confirmacion-detalles .confirmacion-detalles__inner::before {
+                display: none !important;
+            }
+            .confirmacion-detalles .confirmacion-detalles__col--fecha,
+            .confirmacion-detalles .confirmacion-detalles__col--incluye {
+                grid-column: 1 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                clear: both !important;
+            }
+            /* Espaciado entre las secciones */
+            .confirmacion-detalles .confirmacion-detalles__col--incluye {
+                margin-top: 24px !important;
+                padding-top: 20px !important;
+                border-top: 2px solid #E5ECFF !important;
+            }
+            
+            /* Asegurar que los contenedores internos no tengan padding que cause doble espaciado */
+            .confirmacion-detalles,
+            .confirmacion-credenciales {
+                padding: 0 !important;
+            }
+            
+            /* Ajustar el contenedor principal para mobile */
+            .caja-principal {
+                margin: 10px auto !important;
+                padding: 12px !important;
+                border-radius: 12px !important;
+                max-width: 90% !important;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+            }
+            
+            /* Asegurar que las secciones internas tengan el ancho completo del contenedor */
+            .confirmacion-detalles,
+            .confirmacion-credenciales,
+            .confirmacion-features,
+            .confirmacion-importante {
+                margin: 0 !important;
+                padding: 16px !important;
+                border-radius: 12px !important;
+            }
+            
+            /* Ajustar títulos para mobile */
+            .confirmacion-credenciales__title {
+                font-size: 20px !important;
+                padding: 8px 16px !important;
+                margin-bottom: 16px !important;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+                border-radius: 12px !important;
+                display: inline-block !important;
+                background: white !important;
+            }
+            
+            /* Ajustar tarjetas de credenciales para mejor apilamiento */
+            .credencial-card {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 12px !important;
+            }
+            
+            .credencial-card__info {
+                align-items: flex-start !important;
+            }
+            
+            /* Asegurar que las features se muestren en una columna en mobile */
+            .confirmacion-features__grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+            
+            /* Reducir tamaño de las feature cards en mobile */
+            .feature-card {
+                padding: 0 8px !important;
+            }
+            
+            .feature-card__icon-circle {
+                width: 70px !important;
+                height: 70px !important;
+            }
+            
+            .feature-card__icon {
+                width: 35px !important;
+                height: 35px !important;
+            }
+            
+            .feature-card__title {
+                font-size: 13px !important;
+            }
+            
+            /* Ajustar botones para mobile */
+            .credencial-card__btn,
+            .btn-primary {
+                width: 100% !important;
+                justify-content: center !important;
+                text-align: center !important;
+            }
+            
+            /* Mejorar espaciado en listas */
+            .confirmacion-detalles__lista,
+            .confirmacion-importante__lista {
+                gap: 12px !important;
+            }
+            
+            .confirmacion-detalles__lista li,
+            .confirmacion-importante__lista li {
+                gap: 10px !important;
+                font-size: 13px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* FORZAR apilamiento vertical de las columnas en detalles también en mobile pequeño */
+            .confirmacion-detalles .confirmacion-detalles__inner {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+            .confirmacion-detalles .confirmacion-detalles__col--fecha,
+            .confirmacion-detalles .confirmacion-detalles__col--incluye {
+                grid-column: 1 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                clear: both !important;
+            }
+            .confirmacion-detalles .confirmacion-detalles__col--incluye {
+                margin-top: 20px !important;
+                padding-top: 16px !important;
+                border-top: 2px solid #E5ECFF !important;
+            }
+            
+            /* Ajustes adicionales para pantallas muy pequeñas */
+            .caja-principal {
+                margin: 5px auto !important;
+                padding: 8px !important;
+                border-radius: 8px !important;
+                max-width: 95% !important;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 20px 0px !important;
+            }
+            
+            .confirmacion-detalles,
+            .confirmacion-credenciales,
+            .confirmacion-features,
+            .confirmacion-importante {
+                padding: 12px !important;
+                border-radius: 8px !important;
+            }
+            
+            .confirmacion-credenciales__title {
+                font-size: 18px !important;
+                padding: 6px 12px !important;
+                margin-bottom: 12px !important;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 20px 0px !important;
+                border-radius: 8px !important;
+            }
+            
+            /* FORZAR que las features se muestren en una columna en mobile pequeño también */
+            .confirmacion-features__grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            
+            /* Reducir aún más el tamaño de las cards en mobile pequeño */
+            .feature-card {
+                padding: 0 4px !important;
+            }
+            
+            .feature-card__icon-circle {
+                width: 60px !important;
+                height: 60px !important;
+            }
+            
+            .feature-card__icon {
+                width: 30px !important;
+                height: 30px !important;
+            }
+            
+            .feature-card__title {
+                font-size: 12px !important;
+            }
+            
+            /* Ajustar tamaños de fuente */
+            .confirmacion-detalles__title {
+                font-size: 18px !important;
+            }
+            
+            .confirmacion-detalles__day {
+                font-size: 24px !important;
+            }
+            
+            .confirmacion-detalles__year {
+                font-size: 18px !important;
+            }
+            
+            .hero__title {
+                font-size: 24px !important;
+            }
+            
+            /* Hacer las tarjetas de credenciales aún más compactas */
+            .credencial-card {
+                gap: 10px !important;
+            }
+            
+            .credencial-card__icon {
+                width: 36px !important;
+                height: 36px !important;
+            }
+            
+            .credencial-card__title {
+                font-size: 15px !important;
+            }
+            
+            .credencial-card__desc {
+                font-size: 12px !important;
+            }
+            
+            .credencial-card__btn {
+                padding: 10px 16px !important;
+                font-size: 14px !important;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="page-confirmacion">
     <!-- ========== HERO (mismo background que index) ========== -->
     <section class="hero hero--confirmacion">
         <div class="hero__bg" aria-hidden="true"></div>
@@ -53,11 +288,11 @@
                     Registro confirmado
                 </span>
 
-                <h1 class="confirmacion-hero__title">¡Tu registro ha sido<br>Confirmado!</h1>
+                <h1 class="confirmacion-hero__title">¡Tu registro ha sido<br><strong style="color:#097B53;">confirmado!</strong></h1>
 
                 <p class="confirmacion-hero__subtitle">
                     Gracias por formar parte del<br>
-                    <strong>XII Congreso Internacional de Psicología,<br>educación y neurociencias.</strong>
+                    <strong style="color:#0068ED;">XII Congreso Internacional de Psicología,<br>educación y neurociencias.</strong>
                 </p>
 
                 <p class="confirmacion-hero__body">
@@ -72,6 +307,10 @@
             </div>
         </div>
     </section>
+
+   <div class="caja-principal">
+        <!-- Wrapper: card grande blanca que envuelve las 4 secciones de contenido -->
+    <div class="confirmacion-wrapper">
 
     <!-- ========== FECHA + INCLUYE (2 columnas) ========== -->
     <section class="confirmacion-detalles">
@@ -136,12 +375,12 @@
     </section>
 
     <!-- ========== CREDENCIALES Y DESCARGAS ========== -->
-    <section class="confirmacion-credenciales">
-        <div class="confirmacion-credenciales__inner">
-            <h2 class="confirmacion-credenciales__title">
-                <img src="img/pagina_agradecimiento/icono escudo - credenciales.svg" alt="" class="confirmacion-credenciales__title-icon">
-                Tus credenciales y accesos están listos
-            </h2>
+    <section class="confirmacion-credenciales" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important; border-radius: 16px;">
+        <div class="confirmacion-credenciales__inner" style="max-width: 900px; margin: 0 auto;">
+<h2 class="confirmacion-credenciales__title">
+    <img src="img/pagina_agradecimiento/icono escudo - credenciales.svg" alt="" class="confirmacion-credenciales__title-icon">
+    Tus credenciales y accesos están listos
+</h2>
             <p class="confirmacion-credenciales__subtitle">Descarga y guarda cada documento para tener todo lo que necesitas para disfrutar al máximo del congreso</p>
 
             <div class="confirmacion-credenciales__lista">
@@ -296,6 +535,7 @@
             </div>
         </div>
     </section>
+   </div>
 
     <!-- ========== FOOTER (mismo que index) ========== -->
     <footer class="footer">
