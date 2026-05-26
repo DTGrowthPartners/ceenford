@@ -209,6 +209,12 @@
         webhookUrl: 'https://api.ceenford.org/API/index.php',
         sheetsUrl:  'https://script.google.com/macros/s/AKfycbyYsL9yLQJNl_HXMYim6HMhQBrW-LbhujnnkSjxVLiQHX4Jm56oDfHnwyyHfyOr0LIkCQ/exec',
 
+        // Notificador de WhatsApp (mismo origen → proxy nginx a un servicio
+        // Node bajo pm2). Dispara la plantilla de confirmación al inscripto y
+        // la plantilla de aviso a Emmanuel. El token de Meta vive en el backend,
+        // nunca en este archivo (que es público).
+        whatsappUrl: '/api/notify',
+
         // Identificador del evento al que pertenecen las inscripciones.
         // La API de Ceenford genera un "consecutive" único por evento.
         // Confirmar con el dev de ellos el formato exacto que esperan.
@@ -433,22 +439,29 @@
                 if (labelEl) labelEl.textContent = 'Enviando...';
             }
 
-            // Envío paralelo: API de Ceenford (con su esquema) y
-            // Google Sheets (con nuestro payload completo de auditoría)
+            // Envío paralelo: API de Ceenford (con su esquema), Google Sheets
+            // (con nuestro payload completo de auditoría) y el notificador de
+            // WhatsApp (dispara las plantillas de Meta). El WhatsApp es
+            // best-effort: si falla, no bloquea el registro (ver más abajo).
             const results = await Promise.allSettled([
                 sendToWebhook(FORM_CONFIG.webhookUrl, apiPayload),
-                sendToWebhook(FORM_CONFIG.sheetsUrl, payload)
+                sendToWebhook(FORM_CONFIG.sheetsUrl, payload),
+                sendToWebhook(FORM_CONFIG.whatsappUrl, payload)
             ]);
 
             // Consideramos éxito si AL MENOS UNO de los destinos funcionó.
             // Si la API de Ceenford falla por CORS u otra cosa, Google Sheets
             // queda como respaldo confiable; en producción ambos funcionarán.
+            // El gate de éxito solo considera los destinos primarios
+            // (Ceenford API + Sheets). El WhatsApp (results[2]) es best-effort:
+            // que falle no debe impedir la redirección a la página de gracias.
             const configuredCount = [
                 FORM_CONFIG.webhookUrl,
                 FORM_CONFIG.sheetsUrl
             ].filter(Boolean).length;
 
-            const successCount = results.filter(
+            const primaryResults = results.slice(0, 2);
+            const successCount = primaryResults.filter(
                 (r) => r.status === 'fulfilled' && r.value === true
             ).length;
 
