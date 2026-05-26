@@ -1515,12 +1515,19 @@ html, body {
 .confirmacion-wrapper > .confirmacion-importante {
     padding: 0;
     background: transparent;
-    margin: 0;
 }
 
-/* Espacio vertical entre secciones dentro del wrapper */
-.confirmacion-wrapper > section + section {
+/* Espacio vertical entre secciones dentro del wrapper
+   (regla con misma especificidad que la de arriba, pero como va después
+   en la cascada, gana para los selectores que la incluyen). */
+.confirmacion-wrapper > .confirmacion-credenciales,
+.confirmacion-wrapper > .confirmacion-features,
+.confirmacion-wrapper > .confirmacion-importante {
     margin-top: 40px;
+}
+
+.confirmacion-wrapper > .confirmacion-detalles {
+    margin: 0;
 }
 
 /* ----- Fecha + Incluye (2 columnas con divisor vertical) ----- */
