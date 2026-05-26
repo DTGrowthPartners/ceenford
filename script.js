@@ -117,8 +117,28 @@
         // Inicializar el handler del formulario de registro
         initFormSubmit();
 
+        // Sanitizar el input del teléfono (el "+" va como prefijo visual,
+        // el usuario no lo escribe — si pega uno, lo quitamos)
+        initPhoneInput();
+
         // Crear segunda fila del carrusel de partners (visible en mobile)
         initPartnersDualRow();
+    }
+
+    /**
+     * Si el usuario pega o tipea un "+" al inicio del campo teléfono,
+     * lo removemos. El "+" se muestra como prefijo visual (.form-field__prefix)
+     * fuera del input, y se prepende al valor cuando se envía el formulario
+     * (ver collectFormData).
+     */
+    function initPhoneInput() {
+        const phoneInput = document.querySelector('input[name="telefono"]');
+        if (!phoneInput) return;
+        phoneInput.addEventListener('input', (e) => {
+            if (e.target.value.startsWith('+')) {
+                e.target.value = e.target.value.replace(/^\++/, '');
+            }
+        });
     }
 
     /**
@@ -296,6 +316,13 @@
         const tipoPart  = data.get('opcion-paso2');
         const now       = new Date();
 
+        // Telefono: prepend "+" obligatorio. El "+" se muestra como prefijo
+        // visual en el form pero no está en el value del input — lo agregamos
+        // aquí. Si el usuario igual escribió un "+", lo limpiamos antes para
+        // no terminar con "++52...".
+        const phoneRaw = (data.get('telefono') || '').trim().replace(/^\++/, '');
+        const telefono = phoneRaw ? '+' + phoneRaw : '';
+
         return {
             // Selecciones de pasos 1 y 2
             opcion_pago: opcionPago,
@@ -307,7 +334,7 @@
             nombre:      (data.get('nombre')      || '').trim(),
             pais:        data.get('pais'),
             ciudad:      (data.get('ciudad')      || '').trim(),
-            telefono:    (data.get('telefono')    || '').trim(),
+            telefono:    telefono,
             correo:      (data.get('correo')      || '').trim().toLowerCase(),
             area:        data.get('area'),
             institucion: (data.get('institucion') || '').trim() || null,

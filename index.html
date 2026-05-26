@@ -345,9 +345,10 @@
                     <input type="text" placeholder="Ciudad" class="form-field__input" name="ciudad" required>
                 </div>
 
-                <div class="form-field">
+                <div class="form-field form-field--phone">
                     <img src="img/iconos/telefono5.svg" alt="" class="form-field__icon">
-                    <input type="tel" placeholder="Teléfono / WhatsApp (+52 ...)" pattern="^\+\d[\d\s\-]{6,}$" title="Incluye el indicativo del país. Ej: +52 555 123 4567" class="form-field__input" name="telefono" required>
+                    <span class="form-field__prefix" aria-hidden="true">+</span>
+                    <input type="tel" placeholder="52 555 123 4567" pattern="^\d{1,4}[\s\-]?\d{4,}([\s\-]?\d+)*$" title="Incluye el código del país sin el signo +. Ej: 52 555 123 4567" class="form-field__input form-field__input--phone" name="telefono" inputmode="numeric" autocomplete="tel-national" required>
                 </div>
 
                 <div class="form-field">
@@ -594,3 +595,5 @@
     </footer>
 </body>
 </html>
+
+

@@ -865,6 +865,25 @@ html, body {
     font-weight: 600;
 }
 
+/* Prefijo fijo "+" del campo de teléfono. Sigue el mismo color
+   pattern que el placeholder: gris idle, azul cuando se enfoca o
+   ya tiene contenido. No es clickeable (pointer-events: none) para
+   que el click sobre él enfoque al input. */
+.form-field__prefix {
+    color: #9CA3AF;
+    font-weight: 700;
+    font-size: 15px;
+    user-select: none;
+    pointer-events: none;
+    margin-right: -6px;
+    transition: color 0.2s ease;
+}
+
+.form-field:focus-within .form-field__prefix,
+.form-field:has(.form-field__input:not(:placeholder-shown)) .form-field__prefix {
+    color: #022CD4;
+}
+
 /* ----- Estados visuales: idle (gris) → hover → focus/filled (azul) -----
    La idea: campos vacíos arrancan grises (sugieren "lléname") y pasan a
    azul (color de marca) cuando el usuario los enfoca o ya los completó.
