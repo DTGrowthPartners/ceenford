@@ -1421,7 +1421,7 @@ html, body {
     color: #022CD4;
     font-weight: 700;
     font-size: 15px;
-    padding: 6px 22px 6px 6px;
+    padding: 10px 22px;
     border-radius: var(--radius-pill);
     box-shadow: 0 4px 12px rgba(2, 44, 212, 0.10);
     border: 2px solid #DDE3F5;
@@ -1446,7 +1446,7 @@ html, body {
 
 .confirmacion-hero__title {
     font-weight: 900;
-    font-size: clamp(36px, 5vw, 60px);
+    font-size: 2.8em;
     line-height: 1.05;
     color: var(--color-blue);
     margin: 0;
@@ -1469,7 +1469,7 @@ html, body {
 
 .confirmacion-hero__body {
     font-size: 14px;
-    color: #4b5563;
+    color: #28316e;
     font-weight: 500;
     margin: 0;
     line-height: 1.55;
@@ -1661,7 +1661,7 @@ html, body {
 /* ----- Credenciales y descargas ----- */
 .confirmacion-credenciales {
     padding: 32px 64px;
-    background: #F8FBFF;
+    background: #FFFFFF;
 }
 
 .confirmacion-credenciales__inner {
@@ -1683,8 +1683,8 @@ html, body {
 }
 
 .confirmacion-credenciales__title-icon {
-    width: 38px;
-    height: 38px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     object-fit: contain;
 }
@@ -2121,17 +2121,29 @@ html, body {
 
 @media (max-width: 720px) {
     .hero--confirmacion {
-        padding-bottom: 32px;
+        padding-bottom: 28px;
     }
     .confirmacion-hero {
         padding: 12px 20px 0;
-        gap: 18px;
+        gap: 20px;
+    }
+    .confirmacion-hero__badge {
+        font-size: 13px;
+        padding: 5px 18px 5px 5px;
+    }
+    .confirmacion-hero__badge-circle {
+        width: 26px;
+        height: 26px;
+    }
+    .confirmacion-hero__badge-circle svg {
+        width: 14px;
+        height: 14px;
     }
     .confirmacion-hero__title {
-        font-size: clamp(30px, 9vw, 48px);
+        font-size: clamp(28px, 8.5vw, 42px);
     }
     .confirmacion-hero__subtitle {
-        font-size: 15px;
+        font-size: 14px;
     }
     .confirmacion-hero__body {
         font-size: 13px;
@@ -2140,18 +2152,72 @@ html, body {
         max-width: 280px;
     }
 
+    /* Detalles: iconos más compactos en mobile */
     .confirmacion-detalles {
         padding: 22px 16px;
     }
-
-    .credencial-card {
-        padding: 14px 14px;
+    .confirmacion-detalles__icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+    }
+    .confirmacion-detalles__icon-box--sm {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+    }
+    .confirmacion-detalles__title-icon {
+        width: 26px;
+        height: 26px;
+    }
+    .confirmacion-detalles__title {
+        font-size: 16px;
         gap: 12px;
-        flex-wrap: wrap;
+    }
+    .confirmacion-detalles__col--incluye .confirmacion-detalles__title {
+        font-size: 19px;
+    }
+    .confirmacion-detalles__day,
+    .confirmacion-detalles__year {
+        font-size: clamp(28px, 7.5vw, 38px);
+    }
+
+    /* Credenciales: cards con grid 2x2 (icon+info arriba, btn abajo full) */
+    .confirmacion-credenciales {
+        padding: 24px 16px;
+    }
+    .confirmacion-credenciales__title {
+        font-size: 20px;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .confirmacion-credenciales__title-icon {
+        width: 32px;
+        height: 32px;
+    }
+    .confirmacion-credenciales__subtitle {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    .credencial-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        gap: 6px 14px;
+        padding: 14px 16px;
+        flex-wrap: nowrap;
     }
     .credencial-card__icon {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
+        grid-row: 1;
+        grid-column: 1;
+        align-self: center;
+    }
+    .credencial-card__info {
+        grid-row: 1;
+        grid-column: 2;
+        gap: 1px;
     }
     .credencial-card__title {
         font-size: 14px;
@@ -2160,70 +2226,144 @@ html, body {
         font-size: 12px;
     }
     .credencial-card__btn {
-        padding: 8px 16px;
-        font-size: 13px;
-    }
-
-    .confirmacion-credenciales__title {
-        font-size: 22px;
-        flex-direction: column;
-        gap: 8px;
+        grid-row: 2;
+        grid-column: 1 / -1;
+        width: 100%;
+        justify-content: center;
+        padding: 10px 18px;
+        font-size: 14px;
+        margin-top: 4px;
     }
 
     .confirmacion-credenciales__nota-box {
         padding: 14px 16px;
-        gap: 12px;
+        gap: 14px;
     }
-
     .confirmacion-credenciales__nota-icon {
         width: 36px;
         height: 36px;
     }
-
     .confirmacion-credenciales__nota-illustration {
         display: none; /* en mobile la ciudad estorba el texto */
     }
-
     .confirmacion-credenciales__nota-text {
         font-size: 13px;
     }
 
+    /* Features: 2x3 grid sin separadores entre cards */
+    .confirmacion-features {
+        padding: 28px 16px;
+    }
+    .confirmacion-features__title {
+        font-size: 18px;
+        margin-bottom: 22px;
+    }
     .confirmacion-features__grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 22px 16px;
     }
-    /* En 2 columnas: sin separadores (se vería desordenado) */
     .feature-card::after {
         display: none;
     }
     .feature-card__icon-circle {
-        width: 72px;
-        height: 72px;
+        width: 68px;
+        height: 68px;
     }
     .feature-card__icon {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
     }
     .feature-card__title {
         font-size: 13px;
     }
 
+    /* IMPORTANTE: alerta con ícono más compacto pero manteniendo la fila */
+    .confirmacion-importante {
+        padding: 24px 16px 36px;
+    }
+    .confirmacion-importante__inner {
+        padding: 20px;
+        gap: 18px;
+    }
     .confirmacion-importante__col--alerta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+    }
+    .confirmacion-importante__alerta-icon {
+        width: 60px;
+        height: 60px;
+    }
+    .confirmacion-importante__alerta-icon svg,
+    .confirmacion-importante__alerta-img {
+        width: 30px;
+        height: 30px;
+    }
+    .confirmacion-importante__col--alerta .confirmacion-importante__title {
+        font-size: 17px;
+    }
+    .confirmacion-importante__col--alerta .confirmacion-importante__text {
+        font-size: 13px;
+    }
+    .confirmacion-importante__col--proximamente .confirmacion-importante__title {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+    .confirmacion-importante__lista li {
+        font-size: 13px;
+        gap: 10px;
+    }
+    .confirmacion-importante__list-icon {
+        width: 20px;
+        height: 20px;
     }
 }
 
 @media (max-width: 480px) {
-    .confirmacion-features__grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
+    .hero--confirmacion {
+        padding-bottom: 20px;
+    }
+    .confirmacion-hero {
+        padding: 8px 16px 0;
+        gap: 16px;
+    }
+    .confirmacion-hero__img {
+        max-width: 220px;
+    }
+    .confirmacion-hero__subtitle br,
+    .confirmacion-hero__body br {
+        display: none; /* dejar que el texto fluya natural en pantallas chicas */
     }
 
-    .credencial-card__btn {
-        width: 100%;
-        justify-content: center;
+    /* Features: pueden bajar a 1 columna si quedan muy chicos */
+    .confirmacion-features__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px 12px;
+    }
+    .feature-card {
+        padding: 0 4px;
+    }
+    .feature-card__icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+    .feature-card__icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* IMPORTANTE en muy chico: si no entra en fila, stackea */
+    .confirmacion-importante__col--alerta {
+        flex-wrap: wrap;
+    }
+    .confirmacion-importante__alerta-icon {
+        width: 52px;
+        height: 52px;
+    }
+    .confirmacion-importante__alerta-icon svg,
+    .confirmacion-importante__alerta-img {
+        width: 26px;
+        height: 26px;
     }
 }
 
@@ -2512,6 +2652,9 @@ html, body {
     color: #0020B8;
     font-weight: 700;
 }
+
+
+
 
 /* ---------- ADAPTATIVO / RESPONSIVE ----------
    Breakpoints:
