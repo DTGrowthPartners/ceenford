@@ -1490,9 +1490,11 @@ html, body {
     display: block;
 }
 
-/* ----- Fecha + Incluye (2 columnas con divisor vertical) ----- */
+/* ----- Fecha + Incluye (2 columnas con divisor vertical) -----
+   Toda la sección queda dentro de una card blanca con sombra suave. */
 .confirmacion-detalles {
     padding: 32px 64px;
+    background: #F8FBFF;
 }
 
 .confirmacion-detalles__inner {
@@ -1503,6 +1505,10 @@ html, body {
     gap: 40px;
     align-items: start;
     position: relative;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 40px 48px;
+    box-shadow: 0 8px 32px rgba(20, 25, 80, 0.07);
 }
 
 /* Asignamos las columnas del grid explícitamente, porque el ::before
@@ -1668,6 +1674,10 @@ html, body {
     max-width: 1100px;
     margin: 0 auto;
     text-align: center;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 40px 48px;
+    box-shadow: 0 8px 32px rgba(20, 25, 80, 0.07);
 }
 
 .confirmacion-credenciales__title {
@@ -2070,6 +2080,8 @@ html, body {
     .confirmacion-detalles__inner {
         grid-template-columns: 1fr;
         gap: 28px;
+        padding: 32px 32px;
+        border-radius: 20px;
     }
     /* En 1col el divisor vertical entre columnas no aplica */
     .confirmacion-detalles__inner::before {
@@ -2083,6 +2095,10 @@ html, body {
 
     .confirmacion-credenciales {
         padding: 28px 24px;
+    }
+    .confirmacion-credenciales__inner {
+        padding: 32px 28px;
+        border-radius: 20px;
     }
 
     .confirmacion-features {
@@ -2156,6 +2172,10 @@ html, body {
     .confirmacion-detalles {
         padding: 22px 16px;
     }
+    .confirmacion-detalles__inner {
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
     .confirmacion-detalles__icon-box {
         width: 48px;
         height: 48px;
@@ -2185,6 +2205,10 @@ html, body {
     /* Credenciales: cards con grid 2x2 (icon+info arriba, btn abajo full) */
     .confirmacion-credenciales {
         padding: 24px 16px;
+    }
+    .confirmacion-credenciales__inner {
+        padding: 22px 20px;
+        border-radius: 16px;
     }
     .confirmacion-credenciales__title {
         font-size: 20px;
