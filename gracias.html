@@ -94,40 +94,60 @@
                 background: white !important;
             }
             
+            /* Más espacio en la sección de credenciales y descargas */
+            .confirmacion-credenciales {
+                padding: 26px 18px !important;
+            }
+            .confirmacion-credenciales__inner {
+                padding: 26px 20px !important;
+            }
+            .confirmacion-credenciales__lista {
+                gap: 16px !important;
+                margin-bottom: 22px !important;
+            }
+            .confirmacion-credenciales__subtitle {
+                margin-bottom: 24px !important;
+            }
+
             /* Ajustar tarjetas de credenciales para mejor apilamiento */
             .credencial-card {
                 flex-direction: column !important;
                 align-items: flex-start !important;
-                gap: 12px !important;
+                gap: 14px !important;
+                padding: 18px !important;
             }
-            
+
             .credencial-card__info {
                 align-items: flex-start !important;
             }
             
-            /* Asegurar que las features se muestren en una columna en mobile */
+            /* Features en mobile: 3 columnas (tablet / mobile grande) */
             .confirmacion-features__grid {
-                grid-template-columns: 1fr !important;
-                gap: 16px !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 20px 12px !important;
             }
-            
+            /* Sin separadores verticales cuando van en grid de varias filas */
+            .feature-card::after {
+                display: none !important;
+            }
+
             /* Reducir tamaño de las feature cards en mobile */
             .feature-card {
-                padding: 0 8px !important;
+                padding: 0 4px !important;
             }
-            
+
             .feature-card__icon-circle {
-                width: 70px !important;
-                height: 70px !important;
+                width: 64px !important;
+                height: 64px !important;
             }
-            
+
             .feature-card__icon {
-                width: 35px !important;
-                height: 35px !important;
+                width: 32px !important;
+                height: 32px !important;
             }
-            
+
             .feature-card__title {
-                font-size: 13px !important;
+                font-size: 12px !important;
             }
             
             /* Ajustar botones para mobile */
@@ -197,27 +217,27 @@
                 border-radius: 8px !important;
             }
             
-            /* FORZAR que las features se muestren en una columna en mobile pequeño también */
+            /* Features en mobile pequeño: 2 columnas (3 quedan muy apretadas) */
             .confirmacion-features__grid {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 18px 10px !important;
             }
-            
+
             /* Reducir aún más el tamaño de las cards en mobile pequeño */
             .feature-card {
                 padding: 0 4px !important;
             }
-            
+
             .feature-card__icon-circle {
-                width: 60px !important;
-                height: 60px !important;
+                width: 58px !important;
+                height: 58px !important;
             }
-            
+
             .feature-card__icon {
-                width: 30px !important;
-                height: 30px !important;
+                width: 29px !important;
+                height: 29px !important;
             }
-            
+
             .feature-card__title {
                 font-size: 12px !important;
             }
@@ -335,8 +355,8 @@
                         <img src="img/pagina_agradecimiento/location.svg" alt="" class="confirmacion-detalles__pin">
                     </span>
                     <div>
-                        <p class="confirmacion-detalles__sede-name"><strong>Wyndham Monterrey</strong><br><strong>Abrazador centro</strong></p>
-                        <p class="confirmacion-detalles__sede-address">Calz. Madero 311, centro,<br>Monterrey, N.L. 64000, México</p>
+                        <p class="confirmacion-detalles__sede-name"><strong>Wyndham Monterrey</strong><br><strong>Ambassador Centro</strong></p>
+                        <p class="confirmacion-detalles__sede-address">Miguel Hidalgo y Costilla 310,<br>Centro, 64000</p>
                     </div>
                 </div>
             </div>
